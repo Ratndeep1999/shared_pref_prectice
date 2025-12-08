@@ -23,7 +23,7 @@ class LabelTextWidget extends StatelessWidget {
     return Text(
       label,
       style: TextStyle(
-        color: fontColor,
+        color: fontColor ?? Colors.purple,
         fontSize: fontSize,
         fontWeight: fontWeight,
         letterSpacing: letterSpacing,
