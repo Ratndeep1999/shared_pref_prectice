@@ -39,7 +39,7 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LabelTextWidget(label: "Login Page"),
+        title: LabelTextWidget(label: "Login Page", fontColor: Colors.black),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
@@ -57,7 +57,6 @@ class LoginPageState extends State<LoginPage> {
                     /// Username or Email Section
                     LabelTextWidget(
                       label: 'Enter EmailId or Username',
-                      fontColor: Colors.purple,
                       fontSize: 23,
                       fontWeight: FontWeight.w400,
                     ),
@@ -73,7 +72,6 @@ class LoginPageState extends State<LoginPage> {
                     /// Password Section
                     LabelTextWidget(
                       label: 'Enter Password',
-                      fontColor: Colors.purple,
                       fontSize: 23,
                       fontWeight: FontWeight.w400,
                     ),
