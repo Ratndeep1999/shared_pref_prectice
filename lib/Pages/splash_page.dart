@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Widgets/label_text_widget.dart';
+import '../Widgets/label_text_widget.dart';
+import 'login_page.dart';
 
 /// SplashPage class (mutable/state data changeable)
 class SplashPage extends StatefulWidget {
@@ -11,7 +12,7 @@ class SplashPage extends StatefulWidget {
 
 /// State class
 class _SplashPageState extends State<SplashPage> {
-  /// initState()
+
   @override
   void initState() {
     _moveToNextScreen();
