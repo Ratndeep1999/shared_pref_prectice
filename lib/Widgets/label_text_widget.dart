@@ -8,6 +8,7 @@ class LabelTextWidget extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.letterSpacing,
+    this.fontColor
   });
 
   /// Parameters
@@ -15,12 +16,14 @@ class LabelTextWidget extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final double? letterSpacing;
+  final Color? fontColor;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       label,
       style: TextStyle(
+        color: fontColor,
         fontSize: fontSize,
         fontWeight: fontWeight,
         letterSpacing: letterSpacing,
