@@ -12,7 +12,6 @@ class SplashPage extends StatefulWidget {
 
 /// State class
 class _SplashPageState extends State<SplashPage> {
-
   @override
   void initState() {
     _moveToNextScreen();
@@ -21,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
 
   /// Method that navigate to next page after 3 sec of delayed
   void _moveToNextScreen() {
-    Future.delayed(Duration(seconds: 3), () => _navigateToLoginPage());
+    Future.delayed(Duration(seconds: 30), () => _navigateToLoginPage());
   }
 
   /// Method that navigate to LoginPage()
@@ -36,7 +35,17 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) => Scaffold(
     body: SafeArea(
       child: Column(
-        children: [Center(child: LabelTextWidget(label: "Splash Page"))],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: LabelTextWidget(
+              label: "Splash Page...",
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 2,
+            ),
+          ),
+        ],
       ),
     ),
   );
