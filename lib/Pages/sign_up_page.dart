@@ -28,7 +28,7 @@ class SignUpPageState extends State<SignUpPage> {
     _emailController = TextEditingController();
     _userNameController = TextEditingController();
     _passwordController = TextEditingController();
-    _confPasswordController = = TextEditingController();
+    _confPasswordController = TextEditingController();
     _mobileNoController = TextEditingController();
     super.initState();
   }
