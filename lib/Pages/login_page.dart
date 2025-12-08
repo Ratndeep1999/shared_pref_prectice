@@ -13,25 +13,33 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   /// Controllers
-  late final TextEditingController emailOrUsernameController;
-  late final TextEditingController passwordController;
+  late final TextEditingController _emailOrUsernameController;
+  late final TextEditingController _passwordController;
+
+  /// Nodes
+  late final FocusNode _emailOrUsernameNode;
+  late final FocusNode _passwordNode;
 
   /// Parameters
-  final String emailOrUsername = '';
-  final String password = '';
+  final String _emailOrUsername = '';
+  final String _password = '';
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    emailOrUsernameController = TextEditingController();
-    passwordController = TextEditingController();
+    _emailOrUsernameController = TextEditingController();
+    _passwordController = TextEditingController();
+    _emailOrUsernameNode = FocusNode();
+    _passwordNode = FocusNode();
     super.initState();
   }
 
   @override
   void dispose() {
-    emailOrUsernameController.dispose();
-    passwordController.dispose();
+    _emailOrUsernameController.dispose();
+    _passwordController.dispose();
+    _emailOrUsernameNode.dispose();
+    _passwordNode.dispose();
     super.dispose();
   }
 
@@ -63,7 +71,7 @@ class LoginPageState extends State<LoginPage> {
 
                     /// email or username input field
                     TextFormFieldWidget(
-                      controller: emailOrUsernameController,
+                      controller: _emailOrUsernameController,
                       hintText: 'Enter Your Details',
                     ),
 
@@ -78,7 +86,7 @@ class LoginPageState extends State<LoginPage> {
 
                     /// password input field
                     TextFormFieldWidget(
-                      controller: passwordController,
+                      controller: _passwordController,
                       hintText: 'Enter Your Password',
                     ),
 
