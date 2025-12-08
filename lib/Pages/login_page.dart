@@ -18,6 +18,7 @@ class LoginPageState extends State<LoginPage> {
   /// Parameters
   final String emailOrUsername = '';
   final String password = '';
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -36,28 +37,62 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-        child: Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              /// Username or Email Section
-              LabelTextWidget(label: 'Enter EmailId or Username'),
-              /// email or username input field
-              TextFormFieldWidget(
-                controller: emailOrUsernameController,
+      appBar: AppBar(
+        title: LabelTextWidget(label: "Login Page"),
+        centerTitle: true,
+        backgroundColor: Colors.purple,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 32.0),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  /// Username or Email Section
+                  LabelTextWidget(
+                    label: 'Enter EmailId or Username',
+                    fontColor: Colors.purple,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w400,
+                  ),
+
+                  /// email or username input field
+                  TextFormFieldWidget(
+                    controller: emailOrUsernameController,
+                    hintText: 'Enter Your Details',
+                  ),
+
+                  const SizedBox(height: 100),
+
+                  /// Password Section
+                  LabelTextWidget(
+                    label: 'Enter Password',
+                    fontColor: Colors.purple,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w400,
+                  ),
+
+                  /// password input field
+                  TextFormFieldWidget(
+                    controller: passwordController,
+                    hintText: 'Enter Your Password',
+                  ),
+
+                  const SizedBox(height: 50),
+
+                  /// Button
+                  FilledButtonWidget(
+                    buttonLabel: "Loggin...",
+                    onPress: () {
+                      print('Loggin Press');
+                    },
+                  ),
+                ],
               ),
-
-              SizedBox(height: 100),
-
-              SizedBox(height: 50),
-
-              /// Button
-              FilledButtonWidget(buttonLabel: "Loggin...", onPress: () {}),
-            ],
+            ),
           ),
         ),
       ),
