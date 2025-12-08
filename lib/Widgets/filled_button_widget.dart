@@ -24,7 +24,11 @@ class FilledButtonWidget extends StatelessWidget {
         style: FilledButton.styleFrom(
           backgroundColor: buttonColor ?? Colors.purple,
         ),
-        child: LabelTextWidget(label: buttonLabel, fontSize: 20),
+        child: LabelTextWidget(
+          label: buttonLabel,
+          fontSize: 20,
+          fontColor: Colors.black,
+        ),
       ),
     );
   }
