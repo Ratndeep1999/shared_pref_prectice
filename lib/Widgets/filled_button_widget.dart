@@ -6,11 +6,13 @@ class FilledButtonWidget extends StatelessWidget {
     super.key,
     required this.buttonLabel,
     required this.onPress,
+    this.buttonColor,
   });
 
   /// Parameters
   final String buttonLabel;
   final VoidCallback onPress;
+  final Color? buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,9 @@ class FilledButtonWidget extends StatelessWidget {
       width: 250,
       child: FilledButton(
         onPressed: onPress,
+        style: FilledButton.styleFrom(
+          backgroundColor: buttonColor ?? Colors.purple,
+        ),
         child: LabelTextWidget(label: buttonLabel, fontSize: 20),
       ),
     );
