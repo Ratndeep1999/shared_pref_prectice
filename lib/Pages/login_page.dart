@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_pref_prectice/Pages/sign_up_page.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
 import '../Widgets/filled_button_widget.dart';
 import '../Widgets/text_form_field_widget.dart';
@@ -45,57 +46,69 @@ class LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 32.0),
-          child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  /// Username or Email Section
-                  LabelTextWidget(
-                    label: 'Enter EmailId or Username',
-                    fontColor: Colors.purple,
-                    fontSize: 23,
-                    fontWeight: FontWeight.w400,
-                  ),
+          child: AutofillGroup(
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 100),
 
-                  /// email or username input field
-                  TextFormFieldWidget(
-                    controller: emailOrUsernameController,
-                    hintText: 'Enter Your Details',
-                  ),
+                    /// Username or Email Section
+                    LabelTextWidget(
+                      label: 'Enter EmailId or Username',
+                      fontColor: Colors.purple,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w400,
+                    ),
 
-                  const SizedBox(height: 100),
+                    /// email or username input field
+                    TextFormFieldWidget(
+                      controller: emailOrUsernameController,
+                      hintText: 'Enter Your Details',
+                    ),
 
-                  /// Password Section
-                  LabelTextWidget(
-                    label: 'Enter Password',
-                    fontColor: Colors.purple,
-                    fontSize: 23,
-                    fontWeight: FontWeight.w400,
-                  ),
+                    const SizedBox(height: 100),
 
-                  /// password input field
-                  TextFormFieldWidget(
-                    controller: passwordController,
-                    hintText: 'Enter Your Password',
-                  ),
+                    /// Password Section
+                    LabelTextWidget(
+                      label: 'Enter Password',
+                      fontColor: Colors.purple,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w400,
+                    ),
 
-                  const SizedBox(height: 50),
+                    /// password input field
+                    TextFormFieldWidget(
+                      controller: passwordController,
+                      hintText: 'Enter Your Password',
+                    ),
 
-                  /// Button
-                  FilledButtonWidget(
-                    buttonLabel: "Loggin...",
-                    onPress: () {
-                      print('Loggin Press');
-                    },
-                  ),
-                ],
+                    const SizedBox(height: 80),
+
+                    /// Button
+                    FilledButtonWidget(
+                      buttonLabel: "Loggin...",
+                      onPress: () {
+                        print('Loggin Press');
+                        _navigateToSignupPage();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  /// Method to Navigate Signup page
+  void _navigateToSignupPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUpPage()),
     );
   }
 }
