@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
 import '../Widgets/filled_button_widget.dart';
+import '../Widgets/text_form_field_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,8 +11,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  /// Controllers
   late final TextEditingController emailOrUsernameController;
   late final TextEditingController passwordController;
+
+  /// Parameters
+  final String emailOrUsername = '';
+  final String password = '';
 
   @override
   void initState() {
@@ -38,19 +44,17 @@ class LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              
               /// Username or Email Section
               LabelTextWidget(label: 'Enter EmailId or Username'),
-              TextFormField(
+              /// email or username input field
+              TextFormFieldWidget(
                 controller: emailOrUsernameController,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value){return null;},
-                onSaved: (value){},
               ),
 
+              SizedBox(height: 100),
 
-              SizedBox(height: 50,),
-              
+              SizedBox(height: 50),
+
               /// Button
               FilledButtonWidget(buttonLabel: "Loggin...", onPress: () {}),
             ],
