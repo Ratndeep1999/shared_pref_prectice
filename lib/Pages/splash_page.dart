@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
 
   /// Method that navigate to next page after 3 sec of delayed
   void _moveToNextScreen() {
-    Future.delayed(Duration(seconds: 30), () => _navigateToLoginPage());
+    Future.delayed(Duration(seconds: 3), () => _navigateToLoginPage());
   }
 
   /// Method that navigate to LoginPage()
