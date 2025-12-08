@@ -19,6 +19,14 @@ class SignUpPageState extends State<SignUpPage> {
   late final TextEditingController _confPasswordController;
   late final TextEditingController _mobileNoController;
 
+  /// Focus Nodes
+  late final FocusNode _fullNameNode;
+  late final FocusNode _emailNode;
+  late final FocusNode _usernameNode;
+  late final FocusNode _passwordNode;
+  late final FocusNode _confPasswordNode;
+  late final FocusNode _mobileNoNode;
+
   /// Parameters
 
   final _formKey = GlobalKey<FormState>();
@@ -31,6 +39,12 @@ class SignUpPageState extends State<SignUpPage> {
     _passwordController = TextEditingController();
     _confPasswordController = TextEditingController();
     _mobileNoController = TextEditingController();
+    _fullNameNode = FocusNode();
+    _emailNode = FocusNode();
+    _usernameNode = FocusNode();
+    _passwordNode = FocusNode();
+    _confPasswordNode = FocusNode();
+    _mobileNoNode = FocusNode();
     super.initState();
   }
 
@@ -42,6 +56,12 @@ class SignUpPageState extends State<SignUpPage> {
     _passwordController.dispose();
     _confPasswordController.dispose();
     _mobileNoController.dispose();
+    _fullNameNode.dispose();
+    _emailNode.dispose();
+    _usernameNode.dispose();
+    _passwordNode.dispose();
+    _confPasswordNode.dispose();
+    _mobileNoNode.dispose();
     super.dispose();
   }
 
