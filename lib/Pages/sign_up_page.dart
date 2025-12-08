@@ -11,7 +11,12 @@ class SignUpPage extends StatefulWidget {
 
 class SignUpPageState extends State<SignUpPage> {
   /// Controllers
-  late final TextEditingController fullNameController;
+  late final TextEditingController _fullNameController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _userNameController;
+  late final TextEditingController _passwordController;
+  late final TextEditingController _confPasswordController;
+  late final TextEditingController _mobileNoController;
 
   /// Parameters
 
@@ -19,13 +24,23 @@ class SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
-    fullNameController = TextEditingController();
+    _fullNameController = TextEditingController();
+    _emailController = TextEditingController();
+    _userNameController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confPasswordController = = TextEditingController();
+    _mobileNoController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    fullNameController.dispose();
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _userNameController.dispose();
+    _passwordController.dispose();
+    _confPasswordController.dispose();
+    _mobileNoController.dispose();
     super.dispose();
   }
 
@@ -49,11 +64,13 @@ class SignUpPageState extends State<SignUpPage> {
                   /// Full Name Section
                   LabelTextWidget(label: "Enter Full Name", fontSize: 15),
                   TextFormFieldWidget(
-                    controller: fullNameController,
+                    controller: _fullNameController,
                     hintText: "Enter Your Full Name",
                   ),
 
                   /// Email Section
+                  LabelTextWidget(label: "Enter Email Address", fontSize: 15),
+                  TextFormFieldWidget(controller: _emailController, hintText: "Enter Your Email Address")
 
                   /// User name Section
 
