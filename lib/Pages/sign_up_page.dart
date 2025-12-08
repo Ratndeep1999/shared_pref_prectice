@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/text_form_field_widget.dart';
 import '../Widgets/label_text_widget.dart';
 
@@ -47,7 +48,7 @@ class SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: LabelTextWidget(label: "SignUp Page"),
+      title: LabelTextWidget(label: "SignUp Page", fontColor: Colors.black),
       centerTitle: true,
       backgroundColor: Colors.purple,
     ),
@@ -105,9 +106,15 @@ class SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 20),
 
                   /// Mobile No. Section
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 50),
 
-
+                  /// Button
+                  Center(
+                    child: FilledButtonWidget(
+                      buttonLabel: "Create Account",
+                      onPress: () {},
+                    ),
+                  ),
                 ],
               ),
             ),
