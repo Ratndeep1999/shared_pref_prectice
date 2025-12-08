@@ -67,18 +67,47 @@ class SignUpPageState extends State<SignUpPage> {
                     controller: _fullNameController,
                     hintText: "Enter Your Full Name",
                   ),
+                  const SizedBox(height: 20),
 
                   /// Email Section
                   LabelTextWidget(label: "Enter Email Address", fontSize: 15),
-                  TextFormFieldWidget(controller: _emailController, hintText: "Enter Your Email Address")
+                  TextFormFieldWidget(
+                    controller: _emailController,
+                    hintText: "Enter Your Email Address",
+                  ),
+                  const SizedBox(height: 20),
 
                   /// User name Section
+                  LabelTextWidget(label: "Enter User Name", fontSize: 15),
+                  TextFormFieldWidget(
+                    controller: _userNameController,
+                    hintText: "Enter Your User Name",
+                  ),
+                  const SizedBox(height: 20),
 
                   /// Password Section
+                  LabelTextWidget(label: "Enter Password", fontSize: 15),
+                  TextFormFieldWidget(
+                    controller: _passwordController,
+                    hintText: "Enter Your Password",
+                  ),
+                  const SizedBox(height: 20),
 
                   /// Conform Password Section
+                  LabelTextWidget(
+                    label: "Enter Conform Password",
+                    fontSize: 15,
+                  ),
+                  TextFormFieldWidget(
+                    controller: _confPasswordController,
+                    hintText: "Enter Your Conform Password",
+                  ),
+                  const SizedBox(height: 20),
 
                   /// Mobile No. Section
+                  const SizedBox(height: 20),
+
+
                 ],
               ),
             ),
