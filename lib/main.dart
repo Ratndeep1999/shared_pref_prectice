@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_pref_prectice/splash_page.dart';
+import 'package:shared_pref_prectice/Pages/splash_page.dart';
 
 /// Entry point of the program
 main() {
