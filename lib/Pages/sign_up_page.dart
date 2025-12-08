@@ -28,6 +28,12 @@ class SignUpPageState extends State<SignUpPage> {
   late final FocusNode _mobileNoNode;
 
   /// Parameters
+  final _fullName = '';
+  final _email = '';
+  final _userName = '';
+  final _password = '';
+  final _confPassword = '';
+  final _mobileNo = '';
 
   final _formKey = GlobalKey<FormState>();
 
