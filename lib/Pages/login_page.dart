@@ -21,8 +21,9 @@ class LoginPageState extends State<LoginPage> {
   late final FocusNode _passwordNode;
 
   /// Parameters
-  final String _emailOrUsername = '';
-  final String _password = '';
+  late String _emailOrUsername;
+  late String _password;
+  bool isPasswordVisible = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -78,6 +79,7 @@ class LoginPageState extends State<LoginPage> {
                       nextFocus: _passwordNode,
                       autoFocus: true,
                       validator: _emailOrUsernameValidation,
+                      onSaved: _saveEmailOrUsername,
                     ),
 
                     const SizedBox(height: 100),
@@ -96,6 +98,13 @@ class LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.visiblePassword,
                       focusNode: _passwordNode,
                       validator: _passwordValidation,
+                      onSaved: _savePassword,
+                      obscureText: isPasswordVisible,
+                      isSuffixIcon: true,
+                      suffixIcon: isPasswordVisible
+                          ? Icons.lock
+                          : Icons.lock_open,
+                      suffixTap: suffixTap,
                     ),
 
                     const SizedBox(height: 80),
@@ -162,5 +171,22 @@ class LoginPageState extends State<LoginPage> {
       return "Password must contain at least one special character (!@#\$&*~_)";
     }
     return null;
+  }
+
+  /// Method to save email or password
+  void _saveEmailOrUsername(String? emailOrUsername) {
+    _emailOrUsername = emailOrUsername!.trim().toLowerCase();
+  }
+
+  /// Method to save Password
+  void _savePassword(String? password) {
+    _password = password!.trim();
+  }
+
+  /// Method to make Suffix Icon dynamic
+  void suffixTap() {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
   }
 }
