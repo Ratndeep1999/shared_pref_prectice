@@ -12,6 +12,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.focusNode,
     this.isSuffixIcon = false,
     this.suffixIcon,
+    this.suffixTap,
     required this.hintText,
     this.nextFocus,
     this.autoFocus,
@@ -27,6 +28,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final FocusNode? nextFocus;
   final bool isSuffixIcon;
   final IconData? suffixIcon;
+  final VoidCallback? suffixTap;
   final String hintText;
   final bool? autoFocus;
 
@@ -44,7 +46,7 @@ class TextFormFieldWidget extends StatelessWidget {
       onFieldSubmitted: (value) => _onFieldSubmitted(context),
       decoration: InputDecoration(
         suffixIcon: isSuffixIcon && (suffixIcon != null)
-            ? Icon(suffixIcon)
+            ? InkWell(onTap: suffixTap, child: Icon(suffixIcon))
             : null,
         hint: Text(hintText),
       ),
