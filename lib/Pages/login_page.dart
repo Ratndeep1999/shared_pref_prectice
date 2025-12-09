@@ -117,7 +117,7 @@ class LoginPageState extends State<LoginPage> {
                       buttonLabel: "Loggin...",
                       buttonColor: _isFormValid ? null : Colors.purple.shade200,
                       isClicked: _isLoggin,
-                      onPress: _isFormValid ? loginPress : (){} ,
+                      onPress: _isFormValid ? loginPress : () {},
                     ),
                   ],
                 ),
@@ -137,7 +137,6 @@ class LoginPageState extends State<LoginPage> {
     await showProgressIndicator();
     debugPrint("Email/Username: $_emailOrUsername");
     debugPrint("Password: $_password");
-
     _navigateToSignupPage();
   }
 
@@ -156,6 +155,7 @@ class LoginPageState extends State<LoginPage> {
   void checkFormValidity() {
     /// If validate then return true other wise false
     final isValid = _formKey.currentState?.validate() ?? false;
+
     /// trigger when isValid = true
     if (isValid != _isFormValid) {
       setState(() {
