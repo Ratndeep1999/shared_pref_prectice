@@ -40,7 +40,9 @@ class TextFormFieldWidget extends StatelessWidget {
       autofocus: autoFocus ?? false,
       onFieldSubmitted: (value) => _onFieldSubmitted(context),
       decoration: InputDecoration(
-        suffixIcon: isSuffixIcon ? Icon(suffixIcon) : null,
+        suffixIcon: isSuffixIcon && (suffixIcon != null)
+            ? Icon(suffixIcon)
+            : null,
         hint: Text(hintText),
       ),
     );
