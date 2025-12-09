@@ -117,7 +117,7 @@ class LoginPageState extends State<LoginPage> {
                       buttonLabel: "Loggin...",
                       buttonColor: _isFormValid ? null : Colors.purple.shade200,
                       isClicked: _isLoggin,
-                      onPress: loginPress,
+                      onPress: _isFormValid ? loginPress : (){} ,
                     ),
                   ],
                 ),
@@ -130,15 +130,26 @@ class LoginPageState extends State<LoginPage> {
   }
 
   /// Method to Check Login Credentials
-  void loginPress() {
+  void loginPress() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-
+    await showProgressIndicator();
     debugPrint("Email/Username: $_emailOrUsername");
     debugPrint("Password: $_password");
 
     _navigateToSignupPage();
+  }
+
+  /// Method to show Progress Indicator
+  showProgressIndicator() async {
+    setState(() {
+      _isLoggin = true;
+    });
+    await Future.delayed(const Duration(seconds: 3));
+    setState(() {
+      _isLoggin = false;
+    });
   }
 
   /// Method to check Form Validation
