@@ -73,6 +73,7 @@ class LoginPageState extends State<LoginPage> {
                     TextFormFieldWidget(
                       controller: _emailOrUsernameController,
                       hintText: 'Enter Your Details',
+                      validator: _emailOrUsernameValidation,
                     ),
 
                     const SizedBox(height: 100),
@@ -88,6 +89,7 @@ class LoginPageState extends State<LoginPage> {
                     TextFormFieldWidget(
                       controller: _passwordController,
                       hintText: 'Enter Your Password',
+                      validator: _passwordValidation,
                     ),
 
                     const SizedBox(height: 80),
@@ -95,10 +97,7 @@ class LoginPageState extends State<LoginPage> {
                     /// Button
                     FilledButtonWidget(
                       buttonLabel: "Loggin...",
-                      onPress: () {
-                        print('Loggin Press');
-                        _navigateToSignupPage();
-                      },
+                      onPress: () => _navigateToSignupPage(),
                     ),
                   ],
                 ),
@@ -116,5 +115,46 @@ class LoginPageState extends State<LoginPage> {
       context,
       MaterialPageRoute(builder: (context) => SignUpPage()),
     );
+  }
+
+  /// Method to Validate Email or Username
+  String? _emailOrUsernameValidation(String? value) {
+    String? emailOrUsername = value?.trim().toLowerCase();
+    if (emailOrUsername == null || emailOrUsername.isEmpty) {
+      return 'Please enter your email or username';
+    }
+    if (emailOrUsername.length < 4) {
+      return 'Minimum 4 char is must';
+    }
+    // if (_takenUsernames.contains(userName)) {
+    //   return 'Username is already taken';
+    // }
+    return null;
+  }
+
+  /// Method to Validate Password
+  String? _passwordValidation(String? password) {
+    if (password == null || password.isEmpty) {
+      return "Please enter your password";
+    }
+    if (password.length < 8) {
+      return "Password must be at least 8 characters";
+    }
+    if (password.contains(' ')) {
+      return "Space is not allowed";
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+      return "Password must contain at least one uppercase letter";
+    }
+    if (!RegExp(r'[a-z]').hasMatch(password)) {
+      return "Password must contain at least one lowercase letter";
+    }
+    if (!RegExp(r'[0-9]').hasMatch(password)) {
+      return "Password must contain at least one number";
+    }
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) {
+      return "Password must contain at least one special character (!@#\$&*~_)";
+    }
+    return null;
   }
 }
