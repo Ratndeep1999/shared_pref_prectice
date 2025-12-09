@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_pref_prectice/Pages/home_page.dart';
+import 'package:shared_pref_prectice/Pages/sign_up_page.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
 import '../Widgets/filled_button_widget.dart';
 import '../Widgets/text_form_field_widget.dart';
@@ -119,6 +120,16 @@ class LoginPageState extends State<LoginPage> {
                       isClicked: _isLoggin,
                       onPress: _isFormValid ? loginPress : () {},
                     ),
+
+                    const SizedBox(height: 30),
+
+                    /// Signup Button
+                    InkWell(
+                      onTap: ()=>_navigateToSignupPage(),
+                      child: LabelTextWidget(
+                        label: "Don't Have Account ? Create Account",
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -228,5 +239,13 @@ class LoginPageState extends State<LoginPage> {
     setState(() {
       isPasswordVisible = !isPasswordVisible;
     });
+  }
+
+  /// Method to Navigate Signup Page
+  void _navigateToSignupPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUpPage()),
+    );
   }
 }
