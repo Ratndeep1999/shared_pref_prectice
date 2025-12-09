@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:shared_pref_prectice/Pages/home_page.dart';
 import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/text_form_field_widget.dart';
@@ -30,13 +31,12 @@ class SignUpPageState extends State<SignUpPage> {
   late final FocusNode _mobileNoNode;
 
   /// Parameters
-  final _fullName = '';
-  final _email = '';
-  final _userName = '';
-  final _password = '';
-  final _confPassword = '';
-  final _mobileNo = '';
-
+  late String _fullName;
+  late String _email;
+  late String _userName;
+  late String _password;
+  late String _mobileNo;
+  final bool _isPassConfPassSame = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -74,91 +74,113 @@ class SignUpPageState extends State<SignUpPage> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
-        appBar: AppBar(
-          title: LabelTextWidget(label: "SignUp Page", fontColor: Colors.black),
-          centerTitle: true,
-          backgroundColor: Colors.purple,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-            child: AutofillGroup(
-              child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      /// Full Name Section
-                      LabelTextWidget(label: "Enter Full Name", fontSize: 15),
-                      TextFormFieldWidget(
-                        controller: _fullNameController,
-                        hintText: "Enter Your Full Name",
-                      ),
-                      const SizedBox(height: 20),
-
-                      /// Email Section
-                      LabelTextWidget(
-                          label: "Enter Email Address", fontSize: 15),
-                      TextFormFieldWidget(
-                        controller: _emailController,
-                        hintText: "Enter Your Email Address",
-                      ),
-                      const SizedBox(height: 20),
-
-                      /// User name Section
-                      LabelTextWidget(label: "Enter User Name", fontSize: 15),
-                      TextFormFieldWidget(
-                        controller: _userNameController,
-                        hintText: "Enter Your User Name",
-                      ),
-                      const SizedBox(height: 20),
-
-                      /// Password Section
-                      LabelTextWidget(label: "Enter Password", fontSize: 15),
-                      TextFormFieldWidget(
-                        controller: _passwordController,
-                        hintText: "Enter Your Password",
-                      ),
-                      const SizedBox(height: 20),
-
-                      /// Conform Password Section
-                      LabelTextWidget(
-                        label: "Enter Conform Password",
-                        fontSize: 15,
-                      ),
-                      TextFormFieldWidget(
-                        controller: _confPasswordController,
-                        hintText: "Enter Your Conform Password",
-                      ),
-                      const SizedBox(height: 20),
-
-                      /// Mobile No. Section
-                      LabelTextWidget(
-                        label: "Enter Phone Number",
-                        fontSize: 15,
-                      ),
-                      PhoneNumberFieldWidget(),
-                      const SizedBox(height: 20),
-
-                      /// Button
-                      Center(
-                        child: FilledButtonWidget(
-                          buttonLabel: "Create Account",
-                          onPress: () => _navigateToHomePage(),
-                        ),
-                      ),
-                    ],
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      title: LabelTextWidget(label: "SignUp Page", fontColor: Colors.black),
+      centerTitle: true,
+      backgroundColor: Colors.purple,
+    ),
+    body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+        child: AutofillGroup(
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Full Name Section
+                  LabelTextWidget(label: "Enter Full Name", fontSize: 15),
+                  TextFormFieldWidget(
+                    controller: _fullNameController,
+                    hintText: "Enter Your Full Name",
+                    keyboardType: TextInputType.name,
+                    focusNode: _fullNameNode,
+                    nextFocus: _emailNode,
+                    validator: _fullNameValidation,
+                    onSaved: (fName) => _fullName = fName!.trim().toLowerCase(),
                   ),
-                ),
+                  const SizedBox(height: 20),
+
+                  /// Email Section
+                  LabelTextWidget(label: "Enter Email Address", fontSize: 15),
+                  TextFormFieldWidget(
+                    controller: _emailController,
+                    hintText: "Enter Your Email Address",
+                    keyboardType: TextInputType.emailAddress,
+                    focusNode: _emailNode,
+                    nextFocus: _usernameNode,
+                    validator: _emailValidation,
+                    onSaved: (email) => _email = email!.trim().toLowerCase(),
+                  ),
+                  const SizedBox(height: 20),
+
+                  /// User name Section
+                  LabelTextWidget(label: "Enter User Name", fontSize: 15),
+                  TextFormFieldWidget(
+                    controller: _userNameController,
+                    hintText: "Enter Your User Name",
+                    keyboardType: TextInputType.name,
+                    focusNode: _usernameNode,
+                    nextFocus: _passwordNode,
+                    validator: _userNameValidation,
+                    onSaved: (username) => _userName = username!.trim(),
+                  ),
+                  const SizedBox(height: 20),
+
+                  /// Password Section
+                  LabelTextWidget(label: "Enter Password", fontSize: 15),
+                  TextFormFieldWidget(
+                    controller: _passwordController,
+                    hintText: "Enter Your Password",
+                    keyboardType: TextInputType.visiblePassword,
+                    focusNode: _passwordNode,
+                    nextFocus: _confPasswordNode,
+                    validator: _passwordValidation,
+                    onSaved: (password) => _password = password!.trim(),
+                  ),
+                  const SizedBox(height: 20),
+
+                  /// Conform Password Section
+                  LabelTextWidget(
+                    label: "Enter Conform Password",
+                    fontSize: 15,
+                  ),
+                  TextFormFieldWidget(
+                    controller: _confPasswordController,
+                    hintText: "Enter Your Conform Password",
+                    keyboardType: TextInputType.visiblePassword,
+                    focusNode: _confPasswordNode,
+                    nextFocus: _mobileNoNode,
+                    validator: _confPasswordValidation,
+                  ),
+                  const SizedBox(height: 20),
+
+                  /// Mobile No. Section
+                  LabelTextWidget(label: "Enter Phone Number", fontSize: 15),
+                  PhoneNumberFieldWidget(
+                    controller: _mobileNoController,
+                    focusNode: _mobileNoNode,
+                    onSaved: (PhoneNumber? num) => _mobileNo = num.toString(),
+                  ),
+                  const SizedBox(height: 20),
+
+                  /// Button
+                  Center(
+                    child: FilledButtonWidget(
+                      buttonLabel: "Create Account",
+                      onPress: () => _navigateToHomePage(),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
-      );
+      ),
+    ),
+  );
 
   /// Method to navigate HomePage
   _navigateToHomePage() {
@@ -167,6 +189,91 @@ class SignUpPageState extends State<SignUpPage> {
       MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
+
+  /// Full Name Validation
+  String? _fullNameValidation(String? value) {
+    final fullName = value?.trim();
+
+    if (fullName == null || fullName.isEmpty) {
+      return "Please enter full name";
+    }
+
+    if (fullName.length < 4) {
+      return "Name is too short";
+    }
+
+    // Must contain at least first & last name
+    if (!fullName.contains(' ')) {
+      return "Please enter first and last name";
+    }
+
+    // Allowed characters only
+    if (!RegExp(r"^[a-zA-Z]+([ .-][a-zA-Z]+)*$").hasMatch(fullName)) {
+      return "Only letters, space, dot and hyphen are allowed";
+    }
+
+    return null;
+  }
+
+  /// Username Validation (Production Ready)
+  String? _userNameValidation(String? value) {
+    final userName = value?.trim().toLowerCase();
+    if (userName == null || userName.isEmpty) {
+      return "Please enter username";
+    }
+    if (userName.length < 4 || userName.length > 20) {
+      return "Username must be 4–20 characters";
+    }
+    // Must start with a letter
+    if (!RegExp(r'^[a-zA-Z]').hasMatch(userName)) {
+      return "Username must start with a letter";
+    }
+    // Allowed characters only
+    if (!RegExp(r'^[a-zA-Z0-9._]+$').hasMatch(userName)) {
+      return "Only letters, numbers, dot (.) and underscore (_) allowed";
+    }
+    // No consecutive dots or underscores
+    if (RegExp(r'[._]{2,}').hasMatch(userName)) {
+      return "No consecutive dots or underscores allowed";
+    }
+    // Cannot end with dot or underscore
+    if (RegExp(r'[._]$').hasMatch(userName)) {
+      return "Username cannot end with dot or underscore";
+    }
+    return null;
+  }
+
+  /// Email Validation
+  String? _emailValidation(String? value) {
+    String? email = value?.trim().toLowerCase();
+    if (email == null || email.isEmpty) return 'Please Enter Email Address';
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email))
+      return "Email address must contain '@' and '.com'";
+    return null;
+  }
+
+  /// Password Validation
+  String? _passwordValidation(String? value) {
+    String? password = value?.trim();
+    if (password == null || password.isEmpty) return 'Please Enter Password';
+    if (password.length < 8) return 'Password must be at least 8 characters';
+    if (password.contains(' ')) return 'Space is Not Allowed';
+    if (!RegExp(r'[A-Z]').hasMatch(password))
+      return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password))
+      return "Must contain lowercase letter";
+    if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
+      return "Must contain one special character (!@#\$&*~_)";
+    return null;
+  }
+
+  /// Conform Password Validation
+  String? _confPasswordValidation(String? confPassword) {
+    if (confPassword == null || confPassword.isEmpty)
+      return 'Please Enter Conform Password';
+    if (_isPassConfPassSame == false)
+      return 'Password And Conform Password is Not Same';
+    return null;
+  }
 }
-
-
