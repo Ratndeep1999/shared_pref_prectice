@@ -16,6 +16,7 @@ class TextFormFieldWidget extends StatelessWidget {
     required this.hintText,
     this.nextFocus,
     this.autoFocus,
+    this.suffixIconColor,
   });
 
   final TextEditingController controller;
@@ -31,6 +32,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final VoidCallback? suffixTap;
   final String hintText;
   final bool? autoFocus;
+  final Color? suffixIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,10 @@ class TextFormFieldWidget extends StatelessWidget {
       onFieldSubmitted: (value) => _onFieldSubmitted(context),
       decoration: InputDecoration(
         suffixIcon: isSuffixIcon && (suffixIcon != null)
-            ? InkWell(onTap: suffixTap, child: Icon(suffixIcon))
+            ? InkWell(
+                onTap: suffixTap,
+                child: Icon(suffixIcon, color: suffixIconColor),
+              )
             : null,
         hint: Text(hintText),
       ),
