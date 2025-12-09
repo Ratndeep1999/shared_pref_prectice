@@ -123,7 +123,7 @@ class LoginPageState extends State<LoginPage> {
 
                     const SizedBox(height: 30),
 
-                    /// Signup Button
+                    /// Signup Text Button
                     InkWell(
                       onTap: ()=>_navigateToSignupPage(),
                       child: LabelTextWidget(
