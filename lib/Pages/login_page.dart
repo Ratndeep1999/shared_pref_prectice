@@ -112,7 +112,7 @@ class LoginPageState extends State<LoginPage> {
                     /// Button
                     FilledButtonWidget(
                       buttonLabel: "Loggin...",
-                      onPress: () => _navigateToSignupPage(),
+                      onPress: loginPress,
                     ),
                   ],
                 ),
@@ -122,6 +122,17 @@ class LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  /// Method to Check Login Credentials
+  void loginPress() {
+    FocusScope.of(context).unfocus();
+    if(!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
+
+    debugPrint("Email/Username: $_emailOrUsername");
+    debugPrint("Password: $_password");
+    _navigateToSignupPage();
   }
 
   /// Method to Navigate Signup page
@@ -189,4 +200,5 @@ class LoginPageState extends State<LoginPage> {
       isPasswordVisible = !isPasswordVisible;
     });
   }
+
 }
