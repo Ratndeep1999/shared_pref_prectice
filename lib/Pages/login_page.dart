@@ -73,6 +73,9 @@ class LoginPageState extends State<LoginPage> {
                     TextFormFieldWidget(
                       controller: _emailOrUsernameController,
                       hintText: 'Enter Your Details',
+                      focusNode: _emailOrUsernameNode,
+                      nextFocus: _passwordNode,
+                      autoFocus: true,
                       validator: _emailOrUsernameValidation,
                     ),
 
@@ -89,6 +92,7 @@ class LoginPageState extends State<LoginPage> {
                     TextFormFieldWidget(
                       controller: _passwordController,
                       hintText: 'Enter Your Password',
+                      focusNode: _passwordNode,
                       validator: _passwordValidation,
                     ),
 
