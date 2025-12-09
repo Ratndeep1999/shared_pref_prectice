@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_pref_prectice/Pages/sign_up_page.dart';
+import 'package:shared_pref_prectice/Pages/home_page.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
 import '../Widgets/filled_button_widget.dart';
 import '../Widgets/text_form_field_widget.dart';
@@ -137,7 +137,7 @@ class LoginPageState extends State<LoginPage> {
     await showProgressIndicator();
     debugPrint("Email/Username: $_emailOrUsername");
     debugPrint("Password: $_password");
-    _navigateToSignupPage();
+    _navigateToHomePage();
   }
 
   /// Method to show Progress Indicator
@@ -165,10 +165,10 @@ class LoginPageState extends State<LoginPage> {
   }
 
   /// Method to Navigate Signup page
-  void _navigateToSignupPage() {
+  void _navigateToHomePage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SignUpPage()),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 
