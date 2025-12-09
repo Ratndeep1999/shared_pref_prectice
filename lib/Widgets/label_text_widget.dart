@@ -24,7 +24,7 @@ class LabelTextWidget extends StatelessWidget {
       label,
       style: TextStyle(
         color: fontColor ?? Colors.purple,
-        fontSize: fontSize ?? 18,
+        fontSize: fontSize ?? 23,
         fontWeight: fontWeight,
         letterSpacing: letterSpacing,
         overflow: TextOverflow.ellipsis
