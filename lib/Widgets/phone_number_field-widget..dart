@@ -28,9 +28,6 @@ class PhoneNumberFieldWidget extends StatelessWidget {
       onSaved: onSaved,
       controller: controller,
       onSubmitted: (_) => _onSubmitted(context),
-      onChanged: (phone) {
-        print(phone.completeNumber);
-      },
     );
   }
   /// Method to check next focus
