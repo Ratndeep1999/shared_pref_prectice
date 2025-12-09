@@ -7,7 +7,7 @@ class FilledButtonWidget extends StatelessWidget {
     required this.buttonLabel,
     required this.onPress,
     this.buttonColor,
-    this.isClicked = true,
+    this.isClicked = false,
   });
 
   /// Parameters
