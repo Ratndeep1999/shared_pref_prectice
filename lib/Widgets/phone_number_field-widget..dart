@@ -11,6 +11,7 @@ class PhoneNumberFieldWidget extends StatelessWidget {
     return IntlPhoneField(
       decoration: InputDecoration(
         labelText: 'Enter Your Phone Number',
+        labelStyle: TextStyle(fontSize: 15)
       ),
       initialCountryCode: 'IN',
       onChanged: (phone) {
