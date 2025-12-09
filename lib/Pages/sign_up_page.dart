@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:shared_pref_prectice/Pages/home_page.dart';
+import 'package:shared_pref_prectice/Pages/login_page.dart';
 import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/text_form_field_widget.dart';
 import '../Widgets/label_text_widget.dart';
@@ -36,7 +37,10 @@ class SignUpPageState extends State<SignUpPage> {
   late String _userName;
   late String _password;
   late String _mobileNo;
-  final bool _isPassConfPassSame = false;
+  bool _isPassConfPassSame = false;
+  bool isPasswordVisible = false;
+  bool _isSigning = false;
+  bool _isFormValid = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -98,6 +102,7 @@ class SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.name,
                     focusNode: _fullNameNode,
                     nextFocus: _emailNode,
+                    autoFocus: true,
                     validator: _fullNameValidation,
                     onSaved: (fName) => _fullName = fName!.trim().toLowerCase(),
                   ),
@@ -137,6 +142,12 @@ class SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.visiblePassword,
                     focusNode: _passwordNode,
                     nextFocus: _confPasswordNode,
+                    obscureText: isPasswordVisible,
+                    isSuffixIcon: true,
+                    suffixIcon: isPasswordVisible
+                        ? Icons.lock
+                        : Icons.lock_open,
+                    suffixTap: suffixTap,
                     validator: _passwordValidation,
                     onSaved: (password) => _password = password!.trim(),
                   ),
@@ -153,6 +164,14 @@ class SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.visiblePassword,
                     focusNode: _confPasswordNode,
                     nextFocus: _mobileNoNode,
+                    isSuffixIcon: true,
+                    suffixIcon: _isPassConfPassSame
+                        ? Icons.check_circle
+                        : Icons.cancel,
+                    suffixIconColor: _isPassConfPassSame
+                        ? Color(0xFF93c743)
+                        : Color(0xFFFF4C4C),
+                    onChanged: _onChangedConfPassword,
                     validator: _confPasswordValidation,
                   ),
                   const SizedBox(height: 20),
@@ -166,11 +185,12 @@ class SignUpPageState extends State<SignUpPage> {
                   ),
                   const SizedBox(height: 20),
 
-                  /// Button
+                  /// Signup Button
                   Center(
                     child: FilledButtonWidget(
                       buttonLabel: "Create Account",
-                      onPress: () => _navigateToHomePage(),
+                      isClicked: _isSigning,
+                      onPress: _isFormValid ? signupPress : () {},
                     ),
                   ),
                 ],
@@ -182,11 +202,61 @@ class SignUpPageState extends State<SignUpPage> {
     ),
   );
 
-  /// Method to navigate HomePage
+  /// Method to Check User Details
+  void signupPress() async {
+    FocusScope.of(context).unfocus();
+    if (!_formKey.currentState!.validate()) return;
+
+    // Check password and confPassword
+    if (_passwordController.text != _confPasswordController.text) return;
+
+    _formKey.currentState!.save();
+    await showProgressIndicator();
+    _navigateToHomePage();
+  }
+
+  /// Method to show Progress Indicator
+  showProgressIndicator() async {
+    setState(() {
+      _isSigning = true;
+    });
+    await Future.delayed(const Duration(seconds: 3));
+    setState(() {
+      _isSigning = false;
+    });
+  }
+
+  /// Method to make Suffix Icon dynamic
+  void suffixTap() {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
+  }
+
+  /// Check Password and Conf-Password same or Not and Validate Form
+  void _onChangedConfPassword(String confPassword) {
+    setState(() {
+      _isPassConfPassSame = (_passwordController.text == confPassword)
+          ? true
+          : false;
+    });
+
+    /// If validate then return true other wise false
+    final isValid = _formKey.currentState?.validate() ?? false;
+
+    /// trigger when isValid = true
+    if (isValid != _isFormValid) {
+      setState(() {
+        _isFormValid = isValid;
+      });
+    }
+  }
+
+  /// Method to navigate LoginPage
   _navigateToHomePage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()),
+      MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
 
