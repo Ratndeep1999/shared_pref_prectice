@@ -180,7 +180,7 @@ class SignUpPageState extends State<SignUpPage> {
                   PhoneNumberFieldWidget(
                     controller: _mobileNoController,
                     focusNode: _mobileNoNode,
-                    onSaved: (PhoneNumber? num) => _mobileNo = num.toString(),
+                    onSaved: (PhoneNumber? num) => _mobileNo = "${num!.countryCode} ${num.number}",
                   ),
                   const SizedBox(height: 20),
 
