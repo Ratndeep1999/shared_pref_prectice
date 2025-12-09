@@ -83,7 +83,7 @@ class SignUpPageState extends State<SignUpPage> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
             child: AutofillGroup(
               child: Form(
                 key: _formKey,
@@ -138,11 +138,11 @@ class SignUpPageState extends State<SignUpPage> {
 
                       /// Mobile No. Section
                       LabelTextWidget(
-                        label: "Enter Conform Password",
+                        label: "Enter Phone Number",
                         fontSize: 15,
                       ),
                       PhoneNumberFieldWidget(),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 20),
 
                       /// Button
                       Center(
