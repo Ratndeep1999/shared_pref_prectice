@@ -13,6 +13,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.suffixIcon,
     required this.hintText,
     this.nextFocus,
+    this.autoFocus,
   });
 
   final TextEditingController controller;
@@ -25,6 +26,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final bool isSuffixIcon;
   final IconData? suffixIcon;
   final String hintText;
+  final bool? autoFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,8 @@ class TextFormFieldWidget extends StatelessWidget {
       validator: validator,
       onSaved: onSaved,
       focusNode: focusNode,
-      onFieldSubmitted: _onFieldSubmitted(context),
+      autofocus: autoFocus ?? false,
+      onFieldSubmitted: (value) => _onFieldSubmitted(context),
       decoration: InputDecoration(
         suffixIcon: isSuffixIcon ? Icon(suffixIcon) : null,
         hint: Text(hintText),
@@ -45,8 +48,8 @@ class TextFormFieldWidget extends StatelessWidget {
 
   /// Method to check next focus
   _onFieldSubmitted(BuildContext context) {
-    nextFocus == null
-        ? FocusScope.of(context).unfocus()
-        : FocusScope.of(context).nextFocus();
+    nextFocus != null
+        ? FocusScope.of(context).requestFocus(nextFocus)
+        : FocusScope.of(context).unfocus();
   }
 }
