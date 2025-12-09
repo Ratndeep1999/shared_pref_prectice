@@ -142,7 +142,7 @@ class SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.visiblePassword,
                     focusNode: _passwordNode,
                     nextFocus: _confPasswordNode,
-                    obscureText: isPasswordVisible,
+                    obscureText: !isPasswordVisible,
                     isSuffixIcon: true,
                     suffixIcon: isPasswordVisible
                         ? Icons.lock
@@ -209,6 +209,12 @@ class SignUpPageState extends State<SignUpPage> {
 
     // Check password and confPassword
     if (_passwordController.text != _confPasswordController.text) return;
+
+    debugPrint(_fullName);
+    debugPrint(_email);
+    debugPrint(_userName);
+    debugPrint(_password);
+    debugPrint(_mobileNo);
 
     _formKey.currentState!.save();
     await showProgressIndicator();

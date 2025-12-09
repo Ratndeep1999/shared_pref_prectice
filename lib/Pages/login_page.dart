@@ -103,7 +103,7 @@ class LoginPageState extends State<LoginPage> {
                       validator: _passwordValidation,
                       onSaved: _savePassword,
                       onChanged: (_) => checkFormValidity(),
-                      obscureText: isPasswordVisible,
+                      obscureText: !isPasswordVisible,
                       isSuffixIcon: true,
                       suffixIcon: isPasswordVisible
                           ? Icons.lock
