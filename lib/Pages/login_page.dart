@@ -24,6 +24,8 @@ class LoginPageState extends State<LoginPage> {
   late String _emailOrUsername;
   late String _password;
   bool isPasswordVisible = false;
+  bool _isLoggin = false;
+  bool _isFormValid = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -99,6 +101,7 @@ class LoginPageState extends State<LoginPage> {
                       focusNode: _passwordNode,
                       validator: _passwordValidation,
                       onSaved: _savePassword,
+                      onChanged: (_) => checkFormValidity(),
                       obscureText: isPasswordVisible,
                       isSuffixIcon: true,
                       suffixIcon: isPasswordVisible
@@ -109,9 +112,11 @@ class LoginPageState extends State<LoginPage> {
 
                     const SizedBox(height: 80),
 
-                    /// Button
+                    /// Login Button
                     FilledButtonWidget(
                       buttonLabel: "Loggin...",
+                      buttonColor: _isFormValid ? null : Colors.purple.shade200,
+                      isClicked: _isLoggin,
                       onPress: loginPress,
                     ),
                   ],
@@ -127,12 +132,25 @@ class LoginPageState extends State<LoginPage> {
   /// Method to Check Login Credentials
   void loginPress() {
     FocusScope.of(context).unfocus();
-    if(!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
     debugPrint("Email/Username: $_emailOrUsername");
     debugPrint("Password: $_password");
+
     _navigateToSignupPage();
+  }
+
+  /// Method to check Form Validation
+  void checkFormValidity() {
+    /// If validate then return true other wise false
+    final isValid = _formKey.currentState?.validate() ?? false;
+    /// trigger when isValid = true
+    if (isValid != _isFormValid) {
+      setState(() {
+        _isFormValid = isValid;
+      });
+    }
   }
 
   /// Method to Navigate Signup page
@@ -200,5 +218,4 @@ class LoginPageState extends State<LoginPage> {
       isPasswordVisible = !isPasswordVisible;
     });
   }
-
 }
