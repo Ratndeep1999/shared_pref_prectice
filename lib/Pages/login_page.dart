@@ -145,9 +145,9 @@ class LoginPageState extends State<LoginPage> {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    await showProgressIndicator();
     debugPrint("Email/Username: $_emailOrUsername");
     debugPrint("Password: $_password");
+    await showProgressIndicator();
     _navigateToHomePage();
   }
 
