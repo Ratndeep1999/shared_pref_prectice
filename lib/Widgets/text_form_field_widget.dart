@@ -12,6 +12,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.isSuffixIcon = false,
     this.suffixIcon,
     required this.hintText,
+    this.nextFocus,
   });
 
   final TextEditingController controller;
@@ -20,6 +21,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final FormFieldValidator<String?>? validator;
   final FormFieldSetter<String>? onSaved;
   final FocusNode? focusNode;
+  final FocusNode? nextFocus;
   final bool isSuffixIcon;
   final IconData? suffixIcon;
   final String hintText;
@@ -33,10 +35,18 @@ class TextFormFieldWidget extends StatelessWidget {
       validator: validator,
       onSaved: onSaved,
       focusNode: focusNode,
+      onFieldSubmitted: _onFieldSubmitted(context),
       decoration: InputDecoration(
         suffixIcon: isSuffixIcon ? Icon(suffixIcon) : null,
         hint: Text(hintText),
       ),
     );
+  }
+
+  /// Method to check next focus
+  _onFieldSubmitted(BuildContext context) {
+    nextFocus == null
+        ? FocusScope.of(context).unfocus()
+        : FocusScope.of(context).nextFocus();
   }
 }
