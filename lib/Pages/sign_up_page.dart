@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_pref_prectice/Pages/home_page.dart';
 import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/text_form_field_widget.dart';
 import '../Widgets/label_text_widget.dart';
@@ -138,7 +139,7 @@ class SignUpPageState extends State<SignUpPage> {
                   Center(
                     child: FilledButtonWidget(
                       buttonLabel: "Create Account",
-                      onPress: () {},
+                      onPress: _navigateToHomePage(),
                     ),
                   ),
                 ],
@@ -149,4 +150,12 @@ class SignUpPageState extends State<SignUpPage> {
       ),
     ),
   );
+
+  /// Method to navigate HomePage
+  _navigateToHomePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
+  }
 }
