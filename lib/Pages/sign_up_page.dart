@@ -129,7 +129,7 @@ class SignUpPageState extends State<SignUpPage> {
                     focusNode: _usernameNode,
                     nextFocus: _passwordNode,
                     validator: _userNameValidation,
-                    onSaved: (username) => _userName = username!.trim(),
+                    onSaved: (uName) => _userName = uName!.trim().toLowerCase(),
                   ),
                   const SizedBox(height: 20),
 
@@ -209,15 +209,14 @@ class SignUpPageState extends State<SignUpPage> {
     // Check password and confPassword
     if (_passwordController.text != _confPasswordController.text) return;
 
+    _formKey.currentState!.save();
     debugPrint(_fullName);
     debugPrint(_email);
     debugPrint(_userName);
     debugPrint(_password);
     debugPrint(_mobileNo);
-
-    _formKey.currentState!.save();
     await showProgressIndicator();
-    _navigateToHomePage();
+    _navigateToLoginPage();
   }
 
   /// Method to show Progress Indicator
@@ -258,7 +257,7 @@ class SignUpPageState extends State<SignUpPage> {
   }
 
   /// Method to navigate LoginPage
-  _navigateToHomePage() {
+  _navigateToLoginPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => LoginPage()),
