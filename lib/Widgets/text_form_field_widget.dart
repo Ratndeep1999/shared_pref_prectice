@@ -8,6 +8,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.validator,
     this.onSaved,
+    this.onChanged,
     this.focusNode,
     this.isSuffixIcon = false,
     this.suffixIcon,
@@ -21,6 +22,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextInputType keyboardType;
   final FormFieldValidator<String?>? validator;
   final FormFieldSetter<String>? onSaved;
+  final ValueChanged<String>? onChanged;
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
   final bool isSuffixIcon;
@@ -36,6 +38,7 @@ class TextFormFieldWidget extends StatelessWidget {
       obscureText: obscureText,
       validator: validator,
       onSaved: onSaved,
+      onChanged: onChanged,
       focusNode: focusNode,
       autofocus: autoFocus ?? false,
       onFieldSubmitted: (value) => _onFieldSubmitted(context),
