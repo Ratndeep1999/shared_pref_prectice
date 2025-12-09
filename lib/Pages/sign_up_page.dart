@@ -145,8 +145,8 @@ class SignUpPageState extends State<SignUpPage> {
                     obscureText: !isPasswordVisible,
                     isSuffixIcon: true,
                     suffixIcon: isPasswordVisible
-                        ? Icons.lock
-                        : Icons.lock_open,
+                        ? Icons.lock_open
+                        : Icons.lock,
                     suffixTap: suffixTap,
                     validator: _passwordValidation,
                     onSaved: (password) => _password = password!.trim(),

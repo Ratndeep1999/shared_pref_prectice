@@ -106,8 +106,8 @@ class LoginPageState extends State<LoginPage> {
                       obscureText: !isPasswordVisible,
                       isSuffixIcon: true,
                       suffixIcon: isPasswordVisible
-                          ? Icons.lock
-                          : Icons.lock_open,
+                          ? Icons.lock_open
+                          : Icons.lock,
                       suffixTap: suffixTap,
                     ),
 
