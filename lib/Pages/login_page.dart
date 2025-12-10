@@ -3,6 +3,7 @@ import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
 import '../Widgets/filled_button_widget.dart';
 import '../Widgets/text_form_field_widget.dart';
 import '../core/app/app_routes.dart';
+import '../core/utils/validators.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -80,7 +81,7 @@ class LoginPageState extends State<LoginPage> {
                       focusNode: _emailOrUsernameNode,
                       nextFocus: _passwordNode,
                       autoFocus: true,
-                      validator: _emailOrUsernameValidation,
+                      validator: Validators.emailOrUsername,
                       onSaved: _saveEmailOrUsername,
                     ),
 
@@ -99,7 +100,7 @@ class LoginPageState extends State<LoginPage> {
                       hintText: 'Enter Your Password',
                       keyboardType: TextInputType.visiblePassword,
                       focusNode: _passwordNode,
-                      validator: _passwordValidation,
+                      validator: Validators.password,
                       onSaved: _savePassword,
                       onChanged: (_) => checkFormValidity(),
                       obscureText: !isPasswordVisible,
@@ -177,47 +178,6 @@ class LoginPageState extends State<LoginPage> {
   /// Method to Navigate Signup page
   void _navigateToHomePage() {
     Navigator.pushReplacementNamed(context, AppRoutes.home);
-  }
-
-  /// Method to Validate Email or Username
-  String? _emailOrUsernameValidation(String? value) {
-    String? emailOrUsername = value?.trim().toLowerCase();
-    if (emailOrUsername == null || emailOrUsername.isEmpty) {
-      return 'Please enter your email or username';
-    }
-    if (emailOrUsername.length < 4) {
-      return 'Minimum 4 char is must';
-    }
-    // if (_takenUsernames.contains(userName)) {
-    //   return 'Username is already taken';
-    // }
-    return null;
-  }
-
-  /// Method to Validate Password
-  String? _passwordValidation(String? password) {
-    if (password == null || password.isEmpty) {
-      return "Please enter your password";
-    }
-    if (password.length < 8) {
-      return "Password must be at least 8 characters";
-    }
-    if (password.contains(' ')) {
-      return "Space is not allowed";
-    }
-    if (!RegExp(r'[A-Z]').hasMatch(password)) {
-      return "Password must contain at least one uppercase letter";
-    }
-    if (!RegExp(r'[a-z]').hasMatch(password)) {
-      return "Password must contain at least one lowercase letter";
-    }
-    if (!RegExp(r'[0-9]').hasMatch(password)) {
-      return "Password must contain at least one number";
-    }
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) {
-      return "Password must contain at least one special character (!@#\$&*~_)";
-    }
-    return null;
   }
 
   /// Method to save email or password
