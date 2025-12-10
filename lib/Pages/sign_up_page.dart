@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'package:shared_pref_prectice/Pages/login_page.dart';
 import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/text_form_field_widget.dart';
 import '../Widgets/label_text_widget.dart';
