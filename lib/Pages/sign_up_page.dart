@@ -188,10 +188,23 @@ class SignUpPageState extends State<SignUpPage> {
     if (!_formKey.currentState!.validate()) return;
 
     // Check password and confPassword
-    if (fields.passwordController.text != fields.confPasswordController.text) return;
+    if (fields.passwordController.text != fields.confPasswordController.text)
+      return;
     _formKey.currentState!.save();
+    _saveUserInfoInSharedPref();
     await showProgressIndicator();
     Navigator.pop(context);
+  }
+
+  /// Save user details in shared pref
+  _saveUserInfoInSharedPref() {
+    prefService.saveUserInfo(
+      fullName: _fullName,
+      emailId: _email,
+      userName: _userName,
+      password: _password,
+      phoneNo: _mobileNo,
+    );
   }
 
   /// Method to show Progress Indicator
