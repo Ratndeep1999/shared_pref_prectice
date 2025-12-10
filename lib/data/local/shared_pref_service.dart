@@ -10,5 +10,13 @@ class SharedPrefService {
   /// factory constructor that return same instance
   factory SharedPrefService() => _instance;
 
+  /// shared preference object
+  static SharedPreferences? _pref;
+
+  /// initialize object
+  Future<void> initSharedPref() async {
+    _pref = await SharedPreferences.getInstance();
+  }
+
 
 }
