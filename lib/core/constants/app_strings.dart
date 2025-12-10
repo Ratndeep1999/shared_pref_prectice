@@ -9,16 +9,21 @@ class AppStrings {
   static const loginTitle = "Login Page";
   static const emailOrUsername = "Enter EmailId or Username";
   static const password = "Enter Password";
+  static const yourDetails = "Enter Your Details";
+  static const yourPassword = "Enter Your Password";
   static const loginButton = "Login...";
   static const createAccount = "Don't Have Account? Create Account";
 
   // Signup
   static const signupTitle = "SignUp Page";
   static const fullName = "Enter Full Name";
-  static const email = "Enter Email Address";
   static const username = "Enter User Name";
+  static const email = "Enter Email Address";
   static const confirmPassword = "Enter Confirm Password";
   static const phone = "Enter Phone Number";
+  static const yourFullName = "Enter Your Full Name";
+  static const yourUsername = "Enter Your User Name";
+  static const passwordAgain = "Enter Password Again";
   static const createButton = "Create Account";
 
   // Home
