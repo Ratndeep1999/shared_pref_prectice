@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   # Input Phone number with Country code
   intl_phone_field: ^3.2.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
