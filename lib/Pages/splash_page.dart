@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../Widgets/label_text_widget.dart';
+import '../features/auth/data/local/auth_local_data_source.dart';
 import 'login_page.dart';
+import 'home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-/// SplashPage class (mutable/state data changeable)
+/// SplashPage class (checks login state and navigates)
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -10,24 +13,36 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-/// State class
 class _SplashPageState extends State<SplashPage> {
+  late final AuthLocalDataSource authLocalDataSource;
+
   @override
   void initState() {
-    _moveToNextScreen();
     super.initState();
+    _initDataSource();
+    _moveToNextScreen();
   }
 
-  /// Method that navigate to next page after 3 sec of delayed
-  void _moveToNextScreen() {
-    Future.delayed(Duration(seconds: 3), () => _navigateToLoginPage());
+  /// Initialize the AuthLocalDataSource
+  void _initDataSource() async {
+    final prefs = await SharedPreferences.getInstance();
+    authLocalDataSource = AuthLocalDataSource(sharedPreferences: prefs);
   }
 
-  /// Method that navigate to LoginPage()
-  _navigateToLoginPage() {
+  /// Navigate after 3 seconds
+  void _moveToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    // Check login state
+    final isLoggedIn = await authLocalDataSource.isLoggedIn();
+
+    // Navigate based on login state
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
+      MaterialPageRoute(
+        builder: (_) => isLoggedIn ? const HomePage() : const LoginPage(),
+      ),
     );
   }
 
@@ -36,7 +51,7 @@ class _SplashPageState extends State<SplashPage> {
     body: SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: const [
           Center(
             child: LabelTextWidget(
               label: "Splash Page...",
