@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
+import 'package:shared_pref_prectice/core/constants/app_strings.dart';
 import '../Widgets/filled_button_widget.dart';
 import '../Widgets/text_form_field_widget.dart';
 import '../core/app/app_routes.dart';
+import '../core/helpers/form_fields.dart';
 import '../core/utils/validators.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,15 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  /// Controllers
-  late final TextEditingController _emailOrUsernameController;
-  late final TextEditingController _passwordController;
-
-  /// Nodes
-  late final FocusNode _emailOrUsernameNode;
-  late final FocusNode _passwordNode;
-
   /// Parameters
+  late final FormFields fields;
   late String _emailOrUsername;
   late String _password;
   bool isPasswordVisible = false;
@@ -31,19 +26,13 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    _emailOrUsernameController = TextEditingController();
-    _passwordController = TextEditingController();
-    _emailOrUsernameNode = FocusNode();
-    _passwordNode = FocusNode();
+    fields = FormFields();
     super.initState();
   }
 
   @override
   void dispose() {
-    _emailOrUsernameController.dispose();
-    _passwordController.dispose();
-    _emailOrUsernameNode.dispose();
-    _passwordNode.dispose();
+    fields.dispose();
     super.dispose();
   }
 
@@ -51,7 +40,10 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LabelTextWidget(label: "Login Page", fontColor: Colors.black),
+        title: LabelTextWidget(
+          label: AppStrings.loginTitle,
+          fontColor: Colors.black,
+        ),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
@@ -68,18 +60,18 @@ class LoginPageState extends State<LoginPage> {
 
                     /// Username or Email Section
                     LabelTextWidget(
-                      label: 'Enter EmailId or Username',
+                      label: AppStrings.emailOrUsername,
                       fontSize: 23,
                       fontWeight: FontWeight.w400,
                     ),
 
                     /// email or username input field
                     TextFormFieldWidget(
-                      controller: _emailOrUsernameController,
-                      hintText: 'Enter Your Details',
+                      controller: fields.emailController,
+                      hintText: AppStrings.yourDetails,
                       keyboardType: TextInputType.emailAddress,
-                      focusNode: _emailOrUsernameNode,
-                      nextFocus: _passwordNode,
+                      focusNode: fields.emailNode,
+                      nextFocus: fields.passwordNode,
                       autoFocus: true,
                       validator: Validators.emailOrUsername,
                       onSaved: _saveEmailOrUsername,
@@ -89,17 +81,17 @@ class LoginPageState extends State<LoginPage> {
 
                     /// Password Section
                     LabelTextWidget(
-                      label: 'Enter Password',
+                      label: AppStrings.password,
                       fontSize: 23,
                       fontWeight: FontWeight.w400,
                     ),
 
                     /// password input field
                     TextFormFieldWidget(
-                      controller: _passwordController,
-                      hintText: 'Enter Your Password',
+                      controller: fields.passwordController,
+                      hintText: AppStrings.yourPassword,
                       keyboardType: TextInputType.visiblePassword,
-                      focusNode: _passwordNode,
+                      focusNode: fields.passwordNode,
                       validator: Validators.password,
                       onSaved: _savePassword,
                       onChanged: (_) => checkFormValidity(),
@@ -115,7 +107,7 @@ class LoginPageState extends State<LoginPage> {
 
                     /// Login Button
                     FilledButtonWidget(
-                      buttonLabel: "Loggin...",
+                      buttonLabel: AppStrings.loginButton,
                       buttonColor: _isFormValid ? null : Colors.purple.shade200,
                       isClicked: _isLoggin,
                       onPress: _isFormValid ? loginPress : () {},
@@ -127,7 +119,7 @@ class LoginPageState extends State<LoginPage> {
                     InkWell(
                       onTap: () => _navigateToSignupPage(),
                       child: LabelTextWidget(
-                        label: "Don't Have Account? Create Account",
+                        label: AppStrings.createAccount,
                       ),
                     ),
                   ],
