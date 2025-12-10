@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class FormFields {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confPasswordController = TextEditingController();
   final usernameController = TextEditingController();
   final fullNameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -12,16 +13,19 @@ class FormFields {
   final usernameNode = FocusNode();
   final fullNameNode = FocusNode();
   final phoneNode = FocusNode();
+  final confPasswordNode = FocusNode();
 
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confPasswordController.dispose();
     usernameController.dispose();
     fullNameController.dispose();
     phoneController.dispose();
 
     emailNode.dispose();
     passwordNode.dispose();
+    confPasswordNode.dispose();
     usernameNode.dispose();
     fullNameNode.dispose();
     phoneNode.dispose();
