@@ -18,5 +18,13 @@ class SharedPrefService {
     _pref = await SharedPreferences.getInstance();
   }
 
+  /// constants keys
+  static const String kFullName = "fullName";
+  static const String kEmailId = "emailId";
+  static const String kUserName = "userName";
+  static const String kPassword = "password";
+  static const String kPhoneNo = "phoneNo";
+
+
 
 }
