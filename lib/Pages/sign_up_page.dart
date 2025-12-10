@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/text_form_field_widget.dart';
+import 'package:shared_pref_prectice/core/utils/validators.dart';
 import '../Widgets/label_text_widget.dart';
 import '../Widgets/phone_number_field-widget..dart';
 
@@ -101,7 +102,7 @@ class SignUpPageState extends State<SignUpPage> {
                     focusNode: _fullNameNode,
                     nextFocus: _emailNode,
                     autoFocus: true,
-                    validator: _fullNameValidation,
+                    validator: Validators.fullName,
                     onSaved: (fName) => _fullName = fName!.trim().toLowerCase(),
                   ),
                   const SizedBox(height: 20),
@@ -114,7 +115,7 @@ class SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.emailAddress,
                     focusNode: _emailNode,
                     nextFocus: _usernameNode,
-                    validator: _emailValidation,
+                    validator: Validators.email,
                     onSaved: (email) => _email = email!.trim().toLowerCase(),
                   ),
                   const SizedBox(height: 20),
@@ -127,7 +128,7 @@ class SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.name,
                     focusNode: _usernameNode,
                     nextFocus: _passwordNode,
-                    validator: _userNameValidation,
+                    validator: Validators.username,
                     onSaved: (uName) => _userName = uName!.trim().toLowerCase(),
                   ),
                   const SizedBox(height: 20),
@@ -146,7 +147,7 @@ class SignUpPageState extends State<SignUpPage> {
                         ? Icons.lock_open
                         : Icons.lock,
                     suffixTap: suffixTap,
-                    validator: _passwordValidation,
+                    validator: Validators.password,
                     onSaved: (password) => _password = password!.trim(),
                   ),
                   const SizedBox(height: 20),
@@ -170,7 +171,7 @@ class SignUpPageState extends State<SignUpPage> {
                         ? Color(0xFF93c743)
                         : Color(0xFFFF4C4C),
                     onChanged: _onChangedConfPassword,
-                    validator: _confPasswordValidation,
+                    validator: (value) => Validators.confirmPassword(value, _passwordController.text),
                   ),
                   const SizedBox(height: 20),
 
@@ -255,90 +256,4 @@ class SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  /// Full Name Validation
-  String? _fullNameValidation(String? value) {
-    final fullName = value?.trim();
-
-    if (fullName == null || fullName.isEmpty) {
-      return "Please enter full name";
-    }
-
-    if (fullName.length < 4) {
-      return "Name is too short";
-    }
-
-    // Must contain at least first & last name
-    if (!fullName.contains(' ')) {
-      return "Please enter first and last name";
-    }
-
-    // Allowed characters only
-    if (!RegExp(r"^[a-zA-Z]+([ .-][a-zA-Z]+)*$").hasMatch(fullName)) {
-      return "Only letters, space, dot and hyphen are allowed";
-    }
-
-    return null;
-  }
-
-  /// Username Validation (Production Ready)
-  String? _userNameValidation(String? value) {
-    final userName = value?.trim().toLowerCase();
-    if (userName == null || userName.isEmpty) {
-      return "Please enter username";
-    }
-    if (userName.length < 4 || userName.length > 20) {
-      return "Username must be 4–20 characters";
-    }
-    // Must start with a letter
-    if (!RegExp(r'^[a-zA-Z]').hasMatch(userName)) {
-      return "Username must start with a letter";
-    }
-    // Allowed characters only
-    if (!RegExp(r'^[a-zA-Z0-9._]+$').hasMatch(userName)) {
-      return "Only letters, numbers, dot (.) and underscore (_) allowed";
-    }
-    // No consecutive dots or underscores
-    if (RegExp(r'[._]{2,}').hasMatch(userName)) {
-      return "No consecutive dots or underscores allowed";
-    }
-    // Cannot end with dot or underscore
-    if (RegExp(r'[._]$').hasMatch(userName)) {
-      return "Username cannot end with dot or underscore";
-    }
-    return null;
-  }
-
-  /// Email Validation
-  String? _emailValidation(String? value) {
-    String? email = value?.trim().toLowerCase();
-    if (email == null || email.isEmpty) return 'Please Enter Email Address';
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email))
-      return "Email address must contain '@' and '.com'";
-    return null;
-  }
-
-  /// Password Validation
-  String? _passwordValidation(String? value) {
-    String? password = value?.trim();
-    if (password == null || password.isEmpty) return 'Please Enter Password';
-    if (password.length < 8) return 'Password must be at least 8 characters';
-    if (password.contains(' ')) return 'Space is Not Allowed';
-    if (!RegExp(r'[A-Z]').hasMatch(password))
-      return "Must contain uppercase letter";
-    if (!RegExp(r'[a-z]').hasMatch(password))
-      return "Must contain lowercase letter";
-    if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
-      return "Must contain one special character (!@#\$&*~_)";
-    return null;
-  }
-
-  /// Conform Password Validation
-  String? _confPasswordValidation(String? confPassword) {
-    if (confPassword == null || confPassword.isEmpty)
-      return 'Please Enter Conform Password';
-    if (_isPassConfPassSame == false)
-      return 'Password And Conform Password is Not Same';
-    return null;
-  }
 }
