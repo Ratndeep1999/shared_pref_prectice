@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_pref_prectice/core/constants/app_strings.dart';
 import '../Widgets/label_text_widget.dart';
 import '../core/app/app_routes.dart';
 
@@ -37,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           Center(
             child: LabelTextWidget(
-              label: "Splash Page...",
+              label: AppStrings.splashTitle,
               fontSize: 30,
               fontWeight: FontWeight.w500,
               letterSpacing: 2,
