@@ -8,6 +8,7 @@ import 'package:shared_pref_prectice/data/local/shared_pref_service.dart';
 import '../Widgets/label_text_widget.dart';
 import '../Widgets/phone_number_field-widget..dart';
 import '../core/helpers/form_fields.dart';
+import '../core/helpers/password_validator_helper.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -195,21 +196,17 @@ class SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  /// Check Password and Conf-Password same or Not and Validate Form
+  /// handles changes in the confirm-password field
   void _onChangedConfPassword(String confPassword) {
-    setState(
-      () => _isBothPassSame =
-          (fields.passwordController.text == confPassword) ? true : false,
+    final result = PasswordValidatorHelper.validate(
+      password: fields.passwordController.text,
+      confirmPassword: confPassword,
+      formKey: _formKey,
     );
 
-    /// If validate then return true other wise false
-    final isValid = _formKey.currentState?.validate() ?? false;
-
-    /// trigger when isValid = true
-    if (isValid != _isFormValid) {
-      setState(() {
-        _isFormValid = isValid;
-      });
-    }
+    setState(() {
+      _isBothPassSame = result.isPasswordSame;
+      _isFormValid = result.isFormValid;
+    });
   }
 }
