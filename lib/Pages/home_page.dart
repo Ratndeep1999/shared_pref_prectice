@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_pref_prectice/Pages/login_page.dart';
 import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
+import 'package:shared_pref_prectice/core/constants/app_strings.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,7 +11,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LabelTextWidget(label: "Home Page", fontColor: Colors.black),
+        title: LabelTextWidget(
+          label: AppStrings.homeTitle,
+          fontColor: Colors.black,
+        ),
         centerTitle: true,
         backgroundColor: Colors.purple,
         automaticallyImplyLeading: false,
@@ -32,21 +36,24 @@ class HomePage extends StatelessWidget {
                       children: [
                         /// Saved Data
                         LabelTextWidget(label: "Profile :"),
-                        const SizedBox(height: 20.0,),
+                        const SizedBox(height: 20.0),
                         LabelTextWidget(label: "ratndeep"),
-                        LabelTextWidget(label: "Ratndeep Chandankhede", ),
-                        LabelTextWidget(label: "ratndeepChandankhede@gmail.com"),
+                        LabelTextWidget(label: "Ratndeep Chandankhede"),
+                        LabelTextWidget(
+                          label: "ratndeepChandankhede@gmail.com",
+                        ),
                         LabelTextWidget(label: "ratndeep@121"),
                         LabelTextWidget(label: "+91 8558830830"),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 50,),
+                SizedBox(height: 50),
+
                 /// Logout Button
                 Center(
                   child: FilledButtonWidget(
-                    buttonLabel: "Logout",
+                    buttonLabel: AppStrings.logout,
                     onPress: () => _navigateToLoginPage(context),
                   ),
                 ),
