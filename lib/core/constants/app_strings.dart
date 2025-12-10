@@ -23,6 +23,7 @@ class AppStrings {
   static const phone = "Enter Phone Number";
   static const yourFullName = "Enter Your Full Name";
   static const yourUsername = "Enter Your User Name";
+  static const yourEmail = "Enter Your Email Address";
   static const passwordAgain = "Enter Password Again";
   static const createButton = "Create Account";
 
