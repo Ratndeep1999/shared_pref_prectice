@@ -47,8 +47,18 @@ class SharedPrefService {
   }
 
   /// store string value into key
-  Future<void> savePrefString({required String key, required String value}) async {
+  Future<void> savePrefString(
+      {required String key, required String value}) async {
     await _pref?.setString(key, value);
   }
 
+  /// return bool value of specific key
+  bool getPrefBool({required String key}) {
+    return _pref?.getBool(key) ?? false;
+  }
+
+  /// return string value of specific key
+  String getPrefString({required String key}){
+    return _pref?.getString(key) ?? "";
+  }
 }
