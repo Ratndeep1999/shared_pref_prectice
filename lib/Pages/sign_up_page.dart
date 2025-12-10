@@ -26,7 +26,7 @@ class SignUpPageState extends State<SignUpPage> {
   late String _userName;
   late String _password;
   late String _mobileNo;
-  bool _isPassConfPassSame = false;
+  bool _isBothPassSame = false;
   bool isPasswordVisible = false;
   bool _isSigning = false;
   bool _isFormValid = false;
@@ -85,10 +85,10 @@ class SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 20),
 
                   /// Email Section
-                  LabelTextWidget(label: "Enter Email Address", fontSize: 15),
+                  LabelTextWidget(label: AppStrings.email, fontSize: 15),
                   TextFormFieldWidget(
                     controller: fields.emailController,
-                    hintText: "Enter Your Email Address",
+                    hintText: AppStrings.yourEmail,
                     keyboardType: TextInputType.emailAddress,
                     focusNode: fields.emailNode,
                     nextFocus: fields.usernameNode,
@@ -123,7 +123,7 @@ class SignUpPageState extends State<SignUpPage> {
                     suffixIcon: isPasswordVisible
                         ? Icons.lock_open
                         : Icons.lock,
-                    suffixTap: suffixTap,
+                    suffixTap: () => setState(() => isPasswordVisible = !isPasswordVisible),
                     validator: Validators.password,
                     onSaved: (password) => _password = password!.trim(),
                   ),
@@ -141,17 +141,10 @@ class SignUpPageState extends State<SignUpPage> {
                     focusNode: fields.confPasswordNode,
                     nextFocus: fields.phoneNode,
                     isSuffixIcon: true,
-                    suffixIcon: _isPassConfPassSame
-                        ? Icons.check_circle
-                        : Icons.cancel,
-                    suffixIconColor: _isPassConfPassSame
-                        ? Color(0xFF93c743)
-                        : Color(0xFFFF4C4C),
+                    suffixIcon: _isBothPassSame ? Icons.check_circle : Icons.cancel,
+                    suffixIconColor: _isBothPassSame ? Color(0xFF93c743) : Color(0xFFFF4C4C),
                     onChanged: _onChangedConfPassword,
-                    validator: (value) => Validators.confirmPassword(
-                      value,
-                      fields.passwordController.text,
-                    ),
+                    validator: (value) => Validators.confirmPassword(value, fields.passwordController.text,),
                   ),
                   const SizedBox(height: 20),
 
@@ -160,8 +153,7 @@ class SignUpPageState extends State<SignUpPage> {
                   PhoneNumberFieldWidget(
                     controller: fields.phoneController,
                     focusNode: fields.phoneNode,
-                    onSaved: (PhoneNumber? num) =>
-                        _mobileNo = "${num!.countryCode} ${num.number}",
+                    onSaved: (PhoneNumber? num) => _mobileNo = "${num!.countryCode} ${num.number}",
                   ),
                   const SizedBox(height: 20),
 
@@ -186,52 +178,29 @@ class SignUpPageState extends State<SignUpPage> {
   void signupPress() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
-
-    // Check password and confPassword
-    if (fields.passwordController.text != fields.confPasswordController.text)
-      return;
+    /// final check both password same or not
+    if (fields.passwordController.text != fields.confPasswordController.text) return;
     _formKey.currentState!.save();
+    setState(() => _isSigning = true);
+    await Future.delayed(const Duration(seconds: 3));
     _saveUserInfoInSharedPref();
-    await showProgressIndicator();
     Navigator.pop(context);
+    setState(() => _isSigning = false);
   }
 
   /// Save user details in shared pref
   _saveUserInfoInSharedPref() {
-    prefService.saveUserInfo(
-      fullName: _fullName,
-      emailId: _email,
-      userName: _userName,
-      password: _password,
-      phoneNo: _mobileNo,
+    prefService.saveUserInfo(fullName: _fullName, emailId: _email,
+      userName: _userName, password: _password, phoneNo: _mobileNo,
     );
-  }
-
-  /// Method to show Progress Indicator
-  showProgressIndicator() async {
-    setState(() {
-      _isSigning = true;
-    });
-    await Future.delayed(const Duration(seconds: 3));
-    setState(() {
-      _isSigning = false;
-    });
-  }
-
-  /// Method to make Suffix Icon dynamic
-  void suffixTap() {
-    setState(() {
-      isPasswordVisible = !isPasswordVisible;
-    });
   }
 
   /// Check Password and Conf-Password same or Not and Validate Form
   void _onChangedConfPassword(String confPassword) {
-    setState(() {
-      _isPassConfPassSame = (fields.passwordController.text == confPassword)
-          ? true
-          : false;
-    });
+    setState(
+      () => _isBothPassSame =
+          (fields.passwordController.text == confPassword) ? true : false,
+    );
 
     /// If validate then return true other wise false
     final isValid = _formKey.currentState?.validate() ?? false;
