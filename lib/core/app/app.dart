@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_pref_prectice/core/constants/app_strings.dart';
 import '../../Pages/home_page.dart';
 import '../../Pages/login_page.dart';
 import '../../Pages/sign_up_page.dart';
 import '../../Pages/splash_page.dart';
+import '../theme/app_theme.dart';
 import 'app_routes.dart';
 
 /// Root widget of the application.
@@ -21,11 +23,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       /// Application title (used by OS task switcher)
-      title: "Shared Preferences",
+      title: AppStrings.appName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      /// Theme
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       /// Initial route when app launches
       initialRoute: AppRoutes.splash,
       /// Named route registrations
