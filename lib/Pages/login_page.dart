@@ -74,7 +74,8 @@ class LoginPageState extends State<LoginPage> {
                       nextFocus: fields.passwordNode,
                       autoFocus: true,
                       validator: Validators.emailOrUsername,
-                      onSaved: _saveEmailOrUsername,
+                      onSaved: (emailOrUsername) => _emailOrUsername =
+                          emailOrUsername!.trim().toLowerCase(),
                     ),
 
                     const SizedBox(height: 100),
@@ -93,14 +94,16 @@ class LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.visiblePassword,
                       focusNode: fields.passwordNode,
                       validator: Validators.password,
-                      onSaved: _savePassword,
+                      onSaved: (password) => _password = password!.trim(),
                       onChanged: (_) => checkFormValidity(),
                       obscureText: !isPasswordVisible,
                       isSuffixIcon: true,
                       suffixIcon: isPasswordVisible
                           ? Icons.lock_open
                           : Icons.lock,
-                      suffixTap: suffixTap,
+                      suffixTap: () => setState(
+                        () => isPasswordVisible = !isPasswordVisible,
+                      ),
                     ),
 
                     const SizedBox(height: 80),
@@ -117,10 +120,9 @@ class LoginPageState extends State<LoginPage> {
 
                     /// Signup Text Button
                     InkWell(
-                      onTap: () => _navigateToSignupPage(),
-                      child: LabelTextWidget(
-                        label: AppStrings.createAccount,
-                      ),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRoutes.signup),
+                      child: LabelTextWidget(label: AppStrings.createAccount),
                     ),
                   ],
                 ),
@@ -139,19 +141,10 @@ class LoginPageState extends State<LoginPage> {
     _formKey.currentState!.save();
     debugPrint("Email/Username: $_emailOrUsername");
     debugPrint("Password: $_password");
-    await showProgressIndicator();
-    _navigateToHomePage();
-  }
-
-  /// Method to show Progress Indicator
-  showProgressIndicator() async {
-    setState(() {
-      _isLoggin = true;
-    });
+    setState(() => _isLoggin = true);
     await Future.delayed(const Duration(seconds: 3));
-    setState(() {
-      _isLoggin = false;
-    });
+    setState(() => _isLoggin = false);
+    Navigator.pushReplacementNamed(context, AppRoutes.home);
   }
 
   /// Method to check Form Validation
@@ -165,32 +158,5 @@ class LoginPageState extends State<LoginPage> {
         _isFormValid = isValid;
       });
     }
-  }
-
-  /// Method to Navigate Signup page
-  void _navigateToHomePage() {
-    Navigator.pushReplacementNamed(context, AppRoutes.home);
-  }
-
-  /// Method to save email or password
-  void _saveEmailOrUsername(String? emailOrUsername) {
-    _emailOrUsername = emailOrUsername!.trim().toLowerCase();
-  }
-
-  /// Method to save Password
-  void _savePassword(String? password) {
-    _password = password!.trim();
-  }
-
-  /// Method to make Suffix Icon dynamic
-  void suffixTap() {
-    setState(() {
-      isPasswordVisible = !isPasswordVisible;
-    });
-  }
-
-  /// Method to Navigate Signup Page
-  void _navigateToSignupPage() {
-    Navigator.pushNamed(context, AppRoutes.signup);
   }
 }
