@@ -216,7 +216,7 @@ class SignUpPageState extends State<SignUpPage> {
     debugPrint(_password);
     debugPrint(_mobileNo);
     await showProgressIndicator();
-    _navigateToLoginPage();
+    Navigator.pop(context);
   }
 
   /// Method to show Progress Indicator
@@ -254,14 +254,6 @@ class SignUpPageState extends State<SignUpPage> {
         _isFormValid = isValid;
       });
     }
-  }
-
-  /// Method to navigate LoginPage
-  _navigateToLoginPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
   }
 
   /// Full Name Validation
