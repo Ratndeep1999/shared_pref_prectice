@@ -24,7 +24,22 @@ class SharedPrefService {
   static const String kUserName = "userName";
   static const String kPassword = "password";
   static const String kPhoneNo = "phoneNo";
+  static const String kIsLoggedIn = "isLoggedIn";
 
+  /// Save User Details
+  void saveUserInfo({
+    required String fullName,
+    required String emailId,
+    required String userName,
+    required String password,
+    required String phoneNo
+  }) {
+    _pref?.setString(kFullName, fullName);
+    _pref?.setString(kEmailId, emailId);
+    _pref?.setString(kUserName, userName);
+    _pref?.setString(kPassword, password);
+    _pref?.setString(kPhoneNo, phoneNo);
+  }
 
 
 }
