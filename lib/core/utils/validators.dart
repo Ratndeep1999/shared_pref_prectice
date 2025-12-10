@@ -1,3 +1,5 @@
+import 'package:shared_pref_prectice/core/utils/app_regex.dart';
+
 /// Centralized validation utilities.
 ///
 /// This class contains reusable, production-ready
@@ -10,6 +12,7 @@
 /// - Consistent validation across app
 ///
 class Validators {
+  Validators._();
   /// Login
 
   /// Validates email or username input.
@@ -46,10 +49,7 @@ class Validators {
       return 'Please enter email address';
     }
 
-    /// Basic email pattern (production safe)
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$');
-
-    if (!emailRegex.hasMatch(email)) {
+    if (!AppRegex.email.hasMatch(email)) {
       return 'Please enter a valid email address';
     }
 
@@ -77,22 +77,22 @@ class Validators {
     }
 
     /// Must start with a letter
-    if (!RegExp(r'^[a-zA-Z]').hasMatch(username)) {
+    if (!AppRegex.usernameStartsWithLetter.hasMatch(username)) {
       return 'Username must start with a letter';
     }
 
     /// Allowed characters only
-    if (!RegExp(r'^[a-zA-Z0-9._]+$').hasMatch(username)) {
+    if (!AppRegex.usernameAllowedChars.hasMatch(username)) {
       return 'Only letters, numbers, dot (.) and underscore (_) allowed';
     }
 
     /// No consecutive dots or underscores
-    if (RegExp(r'[._]{2,}').hasMatch(username)) {
+    if (AppRegex.usernameNoRepeat.hasMatch(username)) {
       return 'No consecutive dots or underscores allowed';
     }
 
     /// Cannot end with dot or underscore
-    if (RegExp(r'[._]$').hasMatch(username)) {
+    if (AppRegex.usernameEndRestriction.hasMatch(username)) {
       return 'Username cannot end with dot or underscore';
     }
 
@@ -143,19 +143,19 @@ class Validators {
       return 'Spaces are not allowed';
     }
 
-    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+    if (!AppRegex.passwordUppercase.hasMatch(password)) {
       return 'Must contain uppercase letter';
     }
 
-    if (!RegExp(r'[a-z]').hasMatch(password)) {
+    if (!AppRegex.passwordLowercase.hasMatch(password)) {
       return 'Must contain lowercase letter';
     }
 
-    if (!RegExp(r'[0-9]').hasMatch(password)) {
+    if (!AppRegex.passwordNumber.hasMatch(password)) {
       return 'Must contain a number';
     }
 
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) {
+    if (AppRegex.passwordSpecial.hasMatch(password)) {
       return 'Must contain a special character';
     }
 
