@@ -9,6 +9,7 @@ import '../Widgets/label_text_widget.dart';
 import '../Widgets/phone_number_field-widget..dart';
 import '../core/helpers/form_fields.dart';
 import '../core/helpers/password_validator_helper.dart';
+import '../core/helpers/signup_helper.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -175,16 +176,21 @@ class SignUpPageState extends State<SignUpPage> {
     ),
   );
 
-  /// Method to Check User Details
-  void signupPress() async {
+  Future<void> signupPress() async {
     FocusScope.of(context).unfocus();
-    if (!_formKey.currentState!.validate()) return;
-    /// final check both password same or not
-    if (fields.passwordController.text != fields.confPasswordController.text) return;
-    _formKey.currentState!.save();
+
+    final result = SignUpHelper.validateAndSave(
+      formKey: _formKey,
+      password: fields.passwordController.text,
+      confirmPassword: fields.confPasswordController.text,
+    );
+
+    if (!result.isValid) return;
+
     setState(() => _isSigning = true);
     await Future.delayed(const Duration(seconds: 3));
     _saveUserInfoInSharedPref();
+    if (!mounted) return;
     Navigator.pop(context);
     setState(() => _isSigning = false);
   }
