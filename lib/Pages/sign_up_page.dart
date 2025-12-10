@@ -4,6 +4,7 @@ import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/text_form_field_widget.dart';
 import 'package:shared_pref_prectice/core/constants/app_strings.dart';
 import 'package:shared_pref_prectice/core/utils/validators.dart';
+import 'package:shared_pref_prectice/data/local/shared_pref_service.dart';
 import '../Widgets/label_text_widget.dart';
 import '../Widgets/phone_number_field-widget..dart';
 import '../core/helpers/form_fields.dart';
@@ -16,6 +17,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class SignUpPageState extends State<SignUpPage> {
+  SharedPrefService prefService = SharedPrefService();
+
   /// Parameters
   late final FormFields fields;
   late String _fullName;
@@ -31,6 +34,7 @@ class SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
+    initSharedPref();
     fields = FormFields();
     super.initState();
   }
@@ -39,6 +43,11 @@ class SignUpPageState extends State<SignUpPage> {
   void dispose() {
     fields.dispose();
     super.dispose();
+  }
+
+  /// initialize shared pref
+  Future<void> initSharedPref() async {
+    await prefService.initSharedPref();
   }
 
   @override
@@ -179,15 +188,8 @@ class SignUpPageState extends State<SignUpPage> {
     if (!_formKey.currentState!.validate()) return;
 
     // Check password and confPassword
-    if (fields.passwordController.text != fields.confPasswordController.text)
-      return;
-
+    if (fields.passwordController.text != fields.confPasswordController.text) return;
     _formKey.currentState!.save();
-    debugPrint(_fullName);
-    debugPrint(_email);
-    debugPrint(_userName);
-    debugPrint(_password);
-    debugPrint(_mobileNo);
     await showProgressIndicator();
     Navigator.pop(context);
   }
