@@ -19,8 +19,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    _moveToNextScreen();
     initSharedPref();
+    _moveToNextScreen();
     super.initState();
   }
 
@@ -32,12 +32,15 @@ class _SplashPageState extends State<SplashPage> {
   /// Navigate after 3 seconds
   void _moveToNextScreen() async {
     await Future.delayed(const Duration(seconds: 3));
-    _navigateToLoginPage();
-  }
-
-  /// Navigate to LoginPage
-  _navigateToLoginPage() {
-    Navigator.pushReplacementNamed(context, AppRoutes.login);
+    /// get bool value
+    final bool? isLoggedIn = prefService.getPrefBool(
+      key: SharedPrefService.kIsLoggedIn,
+    );
+    Navigator.pushReplacementNamed(
+      context,
+      /// check where to navigate
+      isLoggedIn == true ? AppRoutes.home : AppRoutes.login,
+    );
   }
 
   @override
