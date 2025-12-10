@@ -24,10 +24,23 @@ class LoginPageState extends State<LoginPage> {
   bool _isFormValid = false;
   final _formKey = GlobalKey<FormState>();
 
+  late Size _screenSize;
+  late EdgeInsets _padding;
+  late ThemeData _theme;
+
   @override
   void initState() {
     fields = FormFields();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final mediaQuery = MediaQuery.of(context);
+    _screenSize = mediaQuery.size;
+    _padding = mediaQuery.padding;
+    _theme = Theme.of(context);
   }
 
   @override
@@ -74,10 +87,8 @@ class LoginPageState extends State<LoginPage> {
                       nextFocus: fields.passwordNode,
                       autoFocus: true,
                       validator: Validators.emailOrUsername,
-                      onSaved: (emailOrUsername) => _emailOrUsername =
-                          emailOrUsername!.trim().toLowerCase(),
+                      onSaved: (emailOrUsername) => _emailOrUsername = emailOrUsername!.trim().toLowerCase(),
                     ),
-
                     const SizedBox(height: 100),
 
                     /// Password Section
@@ -98,14 +109,10 @@ class LoginPageState extends State<LoginPage> {
                       onChanged: (_) => checkFormValidity(),
                       obscureText: !isPasswordVisible,
                       isSuffixIcon: true,
-                      suffixIcon: isPasswordVisible
-                          ? Icons.lock_open
-                          : Icons.lock,
-                      suffixTap: () => setState(
-                        () => isPasswordVisible = !isPasswordVisible,
+                      suffixIcon: isPasswordVisible ? Icons.lock_open : Icons.lock,
+                      suffixTap: () => setState(() => isPasswordVisible = !isPasswordVisible,
                       ),
                     ),
-
                     const SizedBox(height: 80),
 
                     /// Login Button
@@ -115,13 +122,11 @@ class LoginPageState extends State<LoginPage> {
                       isClicked: _isLoggin,
                       onPress: _isFormValid ? loginPress : () {},
                     ),
-
                     const SizedBox(height: 30),
 
                     /// Signup Text Button
                     InkWell(
-                      onTap: () =>
-                          Navigator.pushNamed(context, AppRoutes.signup),
+                      onTap: () => Navigator.pushNamed(context, AppRoutes.signup),
                       child: LabelTextWidget(label: AppStrings.createAccount),
                     ),
                   ],
@@ -139,8 +144,6 @@ class LoginPageState extends State<LoginPage> {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    debugPrint("Email/Username: $_emailOrUsername");
-    debugPrint("Password: $_password");
     setState(() => _isLoggin = true);
     await Future.delayed(const Duration(seconds: 3));
     setState(() => _isLoggin = false);
@@ -151,7 +154,6 @@ class LoginPageState extends State<LoginPage> {
   void checkFormValidity() {
     /// If validate then return true other wise false
     final isValid = _formKey.currentState?.validate() ?? false;
-
     /// trigger when isValid = true
     if (isValid == _isFormValid) return;
     setState(() => _isFormValid = isValid);
