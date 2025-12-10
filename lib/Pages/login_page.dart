@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared_pref_prectice/Pages/home_page.dart';
-import 'package:shared_pref_prectice/Pages/sign_up_page.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
 import '../Widgets/filled_button_widget.dart';
 import '../Widgets/text_form_field_widget.dart';
+import '../core/app/app_routes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -125,7 +124,7 @@ class LoginPageState extends State<LoginPage> {
 
                     /// Signup Text Button
                     InkWell(
-                      onTap: ()=>_navigateToSignupPage(),
+                      onTap: () => _navigateToSignupPage(),
                       child: LabelTextWidget(
                         label: "Don't Have Account? Create Account",
                       ),
@@ -177,10 +176,7 @@ class LoginPageState extends State<LoginPage> {
 
   /// Method to Navigate Signup page
   void _navigateToHomePage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
+    Navigator.pushReplacementNamed(context, AppRoutes.home);
   }
 
   /// Method to Validate Email or Username
@@ -243,9 +239,6 @@ class LoginPageState extends State<LoginPage> {
 
   /// Method to Navigate Signup Page
   void _navigateToSignupPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignUpPage()),
-    );
+    Navigator.pushNamed(context, AppRoutes.signup);
   }
 }
