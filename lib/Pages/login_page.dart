@@ -153,10 +153,7 @@ class LoginPageState extends State<LoginPage> {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     /// trigger when isValid = true
-    if (isValid != _isFormValid) {
-      setState(() {
-        _isFormValid = isValid;
-      });
-    }
+    if (isValid == _isFormValid) return;
+    setState(() => _isFormValid = isValid);
   }
 }
