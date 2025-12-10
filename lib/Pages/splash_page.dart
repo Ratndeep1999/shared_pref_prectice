@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_pref_prectice/core/constants/app_strings.dart';
+import 'package:shared_pref_prectice/data/local/shared_pref_service.dart';
 import '../Widgets/label_text_widget.dart';
 import '../core/app/app_routes.dart';
 
@@ -13,10 +14,19 @@ class SplashPage extends StatefulWidget {
 
 /// State class
 class _SplashPageState extends State<SplashPage> {
+  /// shared pref object
+  SharedPrefService prefService = SharedPrefService();
+
   @override
   void initState() {
     _moveToNextScreen();
+    initSharedPref();
     super.initState();
+  }
+
+  /// initialize shared preference
+  initSharedPref() async {
+    await prefService.initSharedPref();
   }
 
   /// Navigate after 3 seconds
