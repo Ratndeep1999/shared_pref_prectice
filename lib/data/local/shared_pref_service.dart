@@ -11,11 +11,11 @@ class SharedPrefService {
   factory SharedPrefService() => _instance;
 
   /// shared preference object
-  static SharedPreferences? _pref;
+  static SharedPreferences? _prefs;
 
   /// initialize object
-  Future<void> get initSharedPref async {
-    _pref ??= await SharedPreferences.getInstance();
+  Future<SharedPreferences> get _instancePrefs async {
+    return _prefs ??= await SharedPreferences.getInstance();
   }
 
   /// constants keys
@@ -34,31 +34,50 @@ class SharedPrefService {
     required String password,
     required String phoneNo,
   }) async {
-    await _pref?.setString(kFullName, fullName);
-    await _pref?.setString(kEmailId, emailId);
-    await _pref?.setString(kUserName, userName);
-    await _pref?.setString(kPassword, password);
-    await _pref?.setString(kPhoneNo, phoneNo);
+    final prefs = await _instancePrefs;
+    await prefs.setString(kFullName, fullName);
+    await prefs.setString(kEmailId, emailId);
+    await prefs.setString(kUserName, userName);
+    await prefs.setString(kPassword, password);
+    await prefs.setString(kPhoneNo, phoneNo);
   }
 
   /// store boolean value into key
   Future<void> savePrefBool({required String key, required bool value}) async {
-    await _pref?.setBool(key, value);
+    final prefs = await _instancePrefs;
+    await prefs.setBool(key, value);
   }
 
   /// store string value into key
-  Future<void> savePrefString(
-      {required String key, required String value}) async {
-    await _pref?.setString(key, value);
+  Future<void> savePrefString({
+    required String key,
+    required String value,
+  }) async {
+    final prefs = await _instancePrefs;
+    await prefs.setString(key, value);
   }
 
   /// return bool value of specific key
-  bool getPrefBool({required String key}) {
-    return _pref?.getBool(key) ?? false;
+  Future<bool> getPrefBool({required String key}) async {
+    final prefs = await _instancePrefs;
+    return prefs.getBool(key) ?? false;
   }
 
   /// return string value of specific key
-  String getPrefString({required String key}){
-    return _pref?.getString(key) ?? "";
+  Future<String> getPrefString({required String key}) async {
+    final prefs = await _instancePrefs;
+    return prefs.getString(key) ?? "";
+  }
+
+  /// delete the key
+  Future<void> removeKey({required String key}) async {
+    final prefs = await _instancePrefs;
+    prefs.remove(key);
+  }
+
+  /// clear all data from shared preferences
+  Future<void> clearAll() async {
+    final prefs = await _instancePrefs;
+    await prefs.clear();
   }
 }
