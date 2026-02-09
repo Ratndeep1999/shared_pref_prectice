@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
 
   /// initialize shared preference
   initSharedPref() async {
-    await prefService.initSharedPref();
+    await prefService.initSharedPref;
   }
 
   /// Navigate after 3 seconds
