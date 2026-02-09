@@ -36,20 +36,14 @@ class SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
-    initSharedPref();
-    fields = FormFields();
     super.initState();
+    fields = FormFields();
   }
 
   @override
   void dispose() {
     fields.dispose();
     super.dispose();
-  }
-
-  /// initialize shared pref
-  Future<void> initSharedPref() async {
-    await prefService.initSharedPref;
   }
 
   @override
@@ -189,15 +183,15 @@ class SignUpPageState extends State<SignUpPage> {
 
     setState(() => _isSigning = true);
     await Future.delayed(const Duration(seconds: 3));
-    _saveUserInfoInSharedPref();
+    _saveSignedUpUser();
     if (!mounted) return;
     Navigator.pop(context);
     setState(() => _isSigning = false);
   }
 
   /// Save user details in shared pref
-  _saveUserInfoInSharedPref() {
-    prefService.saveUserInfo(fullName: _fullName, emailId: _email,
+  _saveSignedUpUser() async {
+    await prefService.saveSignedUpUser(fullName: _fullName, emailId: _email,
       userName: _userName, password: _password, phoneNo: _mobileNo,
     );
   }
