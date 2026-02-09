@@ -27,7 +27,7 @@ class SharedPrefService {
   static const String kIsLoggedIn = "isLoggedIn";
 
   /// Save User Details
-  Future<void> setUserInfo({
+  Future<void> saveSignedUpUser({
     required String fullName,
     required String emailId,
     required String userName,
