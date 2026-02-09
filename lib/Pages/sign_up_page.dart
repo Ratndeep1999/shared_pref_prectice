@@ -49,7 +49,7 @@ class SignUpPageState extends State<SignUpPage> {
 
   /// initialize shared pref
   Future<void> initSharedPref() async {
-    await prefService.initSharedPref();
+    await prefService.initSharedPref;
   }
 
   @override
