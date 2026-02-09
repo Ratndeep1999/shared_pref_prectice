@@ -155,7 +155,7 @@ class Validators {
       return 'Must contain a number';
     }
 
-    if (AppRegex.passwordSpecial.hasMatch(password)) {
+    if (!AppRegex.passwordSpecial.hasMatch(password)) {
       return 'Must contain a special character';
     }
 
