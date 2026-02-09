@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
 import 'package:shared_pref_prectice/core/constants/app_strings.dart';
+import 'package:shared_pref_prectice/data/local/shared_pref_service.dart';
 import '../Widgets/filled_button_widget.dart';
 import '../Widgets/text_form_field_widget.dart';
 import '../core/app/app_routes.dart';
@@ -15,6 +16,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  SharedPrefService prefService = SharedPrefService();
+
   /// Parameters
   late final FormFields fields;
   late String _emailOrUsername;
@@ -30,8 +33,8 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    fields = FormFields();
     super.initState();
+    fields = FormFields();
   }
 
   @override
@@ -87,7 +90,8 @@ class LoginPageState extends State<LoginPage> {
                       nextFocus: fields.passwordNode,
                       autoFocus: true,
                       validator: Validators.emailOrUsername,
-                      onSaved: (emailOrUsername) => _emailOrUsername = emailOrUsername!.trim().toLowerCase(),
+                      onSaved: (emailOrUsername) => _emailOrUsername =
+                          emailOrUsername!.trim().toLowerCase(),
                     ),
                     const SizedBox(height: 100),
 
@@ -109,8 +113,11 @@ class LoginPageState extends State<LoginPage> {
                       onChanged: (_) => checkFormValidity(),
                       obscureText: !isPasswordVisible,
                       isSuffixIcon: true,
-                      suffixIcon: isPasswordVisible ? Icons.lock_open : Icons.lock,
-                      suffixTap: () => setState(() => isPasswordVisible = !isPasswordVisible,
+                      suffixIcon: isPasswordVisible
+                          ? Icons.lock_open
+                          : Icons.lock,
+                      suffixTap: () => setState(
+                        () => isPasswordVisible = !isPasswordVisible,
                       ),
                     ),
                     const SizedBox(height: 80),
@@ -126,7 +133,8 @@ class LoginPageState extends State<LoginPage> {
 
                     /// Signup Text Button
                     InkWell(
-                      onTap: () => Navigator.pushNamed(context, AppRoutes.signup),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRoutes.signup),
                       child: LabelTextWidget(label: AppStrings.createAccount),
                     ),
                   ],
@@ -145,17 +153,49 @@ class LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
     setState(() => _isLoggin = true);
-    await Future.delayed(const Duration(seconds: 3));
-    setState(() => _isLoggin = false);
-    Navigator.pushReplacementNamed(context, AppRoutes.home);
+    _checkUserValidation();
   }
 
   /// Method to check Form Validation
   void checkFormValidity() {
     /// If validate then return true other wise false
     final isValid = _formKey.currentState?.validate() ?? false;
+
     /// trigger when isValid = true
     if (isValid == _isFormValid) return;
     setState(() => _isFormValid = isValid);
+  }
+
+  /// Method to check used validation
+  Future<void> _checkUserValidation() async {
+    final savedEmail = await prefService.getPrefString(
+      key: SharedPrefService.kEmailId,
+    );
+    final savedUsername = await prefService.getPrefString(
+      key: SharedPrefService.kUserName,
+    );
+    final savedPassword = await prefService.getPrefString(
+      key: SharedPrefService.kPassword,
+    );
+
+    final bool isValidUser =
+        (_emailOrUsername == savedEmail || _emailOrUsername == savedUsername) &&
+        _password == savedPassword;
+
+    if (!mounted) return;
+    setState(() => _isLoggin = false);
+    Future.delayed(const Duration(seconds: 2), () {
+      if (isValidUser) {
+        prefService.setPrefBool(
+          key: SharedPrefService.kIsLoggedIn,
+          value: true,
+        );
+        Navigator.pushReplacementNamed(context, AppRoutes.home);
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Invalid credentials")));
+      }
+    });
   }
 }
