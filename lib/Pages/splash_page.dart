@@ -12,35 +12,27 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-/// State class
 class _SplashPageState extends State<SplashPage> {
-  /// shared pref object
   SharedPrefService prefService = SharedPrefService();
 
   @override
   void initState() {
-    initSharedPref();
-    _moveToNextScreen();
     super.initState();
-  }
-
-  /// initialize shared preference
-  initSharedPref() async {
-    await prefService.initSharedPref;
+    _navigateToNextScreen();
   }
 
   /// Navigate after 3 seconds
-  void _moveToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 3));
-    /// get bool value
-    final bool? isLoggedIn = prefService.getPrefBool(
-      key: SharedPrefService.kIsLoggedIn,
-    );
-    Navigator.pushReplacementNamed(
-      context,
-      /// check where to navigate
-      isLoggedIn == true ? AppRoutes.home : AppRoutes.login,
-    );
+  void _navigateToNextScreen() {
+    Future.delayed(const Duration(seconds: 3), () async {
+      final isLoggedIn = await prefService.getPrefBool(
+        key: SharedPrefService.kIsLoggedIn,
+      );
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(
+        context,
+        isLoggedIn ? AppRoutes.home : AppRoutes.login,
+      );
+    });
   }
 
   @override
