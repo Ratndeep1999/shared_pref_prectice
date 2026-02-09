@@ -27,7 +27,7 @@ class SharedPrefService {
   static const String kIsLoggedIn = "isLoggedIn";
 
   /// Save User Details
-  Future<void> saveUserInfo({
+  Future<void> setUserInfo({
     required String fullName,
     required String emailId,
     required String userName,
@@ -43,13 +43,13 @@ class SharedPrefService {
   }
 
   /// store boolean value into key
-  Future<void> savePrefBool({required String key, required bool value}) async {
+  Future<void> setPrefBool({required String key, required bool value}) async {
     final prefs = await _instancePrefs;
     await prefs.setBool(key, value);
   }
 
   /// store string value into key
-  Future<void> savePrefString({
+  Future<void> setPrefString({
     required String key,
     required String value,
   }) async {
