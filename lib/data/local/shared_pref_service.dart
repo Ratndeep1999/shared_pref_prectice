@@ -14,8 +14,8 @@ class SharedPrefService {
   static SharedPreferences? _pref;
 
   /// initialize object
-  Future<void> initSharedPref() async {
-    _pref = await SharedPreferences.getInstance();
+  Future<void> get initSharedPref async {
+    _pref ??= await SharedPreferences.getInstance();
   }
 
   /// constants keys
