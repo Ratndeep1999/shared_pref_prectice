@@ -34,4 +34,5 @@ class AppStrings {
 
   // Forget Password
   static const check = "Check";
+  static const checkDetails = "Please check the details again";
 }
