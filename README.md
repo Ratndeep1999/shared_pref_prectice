@@ -75,8 +75,13 @@ Flutter · Dart · SharedPreferences · LocalStorage · Authentication · Beginn
 # Screenshots
 
 ![Login Page](Assets/Result/login_page.png)
+
 ![SignUp Page](Assets/Result/sign_up_page.png)
+
 ![Forget Password Page](Assets/Result/forget_password_page.png)
+
 ![Check Number Page](Assets/Result/check_phone_number_page.png)
+
 ![Update Password Page](Assets/Result/get_and_update_password_page.png)
+
 ![Dashboard Page](Assets/Result/dashboard_page.png)
