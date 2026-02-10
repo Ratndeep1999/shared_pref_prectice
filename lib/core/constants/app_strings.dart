@@ -40,4 +40,5 @@ class AppStrings {
   static const getPassword = "Get Password";
   static const newPassword = "Enter New Password";
   static const conformNewPassword = "Enter New Password Again";
+  static const updatePassword = "Update Password";
 }
