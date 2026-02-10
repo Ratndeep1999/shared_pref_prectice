@@ -185,7 +185,7 @@ class SignUpPageState extends State<SignUpPage> {
     await Future.delayed(const Duration(seconds: 3));
     _saveSignedUpUser();
     if (!mounted) return;
-    Navigator.pop(context);
+    Navigator.popUntil(context, (route) => route.isFirst);
     setState(() => _isSigning = false);
   }
 
