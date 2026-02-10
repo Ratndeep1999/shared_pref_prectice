@@ -45,38 +45,40 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
           child: AutofillGroup(
             child: Form(
               key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(height: 50.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 50.0),
 
-                  /// Username or Email Section
-                  LabelTextWidget(
-                    label: AppStrings.emailOrUsername,
-                    fontSize: 23,
-                    fontWeight: FontWeight.w400,
-                  ),
+                    /// Username or Email Section
+                    LabelTextWidget(
+                      label: AppStrings.emailOrUsername,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w400,
+                    ),
 
-                  /// email or username input field
-                  TextFormFieldWidget(
-                    controller: fields.emailController,
-                    hintText: AppStrings.yourDetails,
-                    keyboardType: TextInputType.emailAddress,
-                    focusNode: fields.emailNode,
-                    nextFocus: fields.passwordNode,
-                    autoFocus: true,
-                    validator: Validators.emailOrUsername,
-                    onSaved: (emailOrUsername) => _emailOrUsername =
-                        emailOrUsername!.trim().toLowerCase(),
-                  ),
-                  const SizedBox(height: 50.0),
+                    /// email or username input field
+                    TextFormFieldWidget(
+                      controller: fields.emailController,
+                      hintText: AppStrings.yourDetails,
+                      keyboardType: TextInputType.emailAddress,
+                      focusNode: fields.emailNode,
+                      nextFocus: fields.passwordNode,
+                      autoFocus: true,
+                      validator: Validators.emailOrUsername,
+                      onSaved: (emailOrUsername) => _emailOrUsername =
+                          emailOrUsername!.trim().toLowerCase(),
+                    ),
+                    const SizedBox(height: 50.0),
 
-                  /// Check is Data Exist
-                  FilledButtonWidget(
-                    buttonLabel: AppStrings.check,
-                    onPress: checkDetails,
-                    isClicked: _isClicked,
-                  ),
-                ],
+                    /// Check is Data Exist
+                    FilledButtonWidget(
+                      buttonLabel: AppStrings.check,
+                      onPress: checkDetails,
+                      isClicked: _isClicked,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -88,10 +90,11 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
   /// Check is data match with saved data
   checkDetails() async {
     FocusScope.of(context).unfocus();
+
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    setState(() => _isClicked = true);
 
+    setState(() => _isClicked = true);
     final savedEmail = await prefService.getPrefString(
       key: SharedPrefService.kEmailId,
     );
@@ -112,7 +115,7 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
           SnackBar(
             backgroundColor: Colors.purple,
             content: LabelTextWidget(
-              label: AppStrings.checkDetails,
+              label: AppStrings.detailsNotMatched,
               fontColor: Colors.black,
             ),
           ),
