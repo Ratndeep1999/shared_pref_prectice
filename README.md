@@ -74,4 +74,4 @@ Flutter · Dart · SharedPreferences · LocalStorage · Authentication · Beginn
 
 # Screenshots
 
-![Login Page](Assets\Result\Login Page.png)
+![Login Page](Assets/Result/login_page.png)
