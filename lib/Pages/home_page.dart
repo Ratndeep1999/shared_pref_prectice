@@ -12,14 +12,16 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-SharedPrefService prefService = SharedPrefService();
-String? _userName;
-String? _fullName;
-String? _emailId;
-String? _password;
-String? _phoneNumber;
-
 class _HomePageState extends State<HomePage> {
+  SharedPrefService prefService = SharedPrefService();
+  bool _isLoading = true;
+  String? _userName;
+  String? _fullName;
+  String? _emailId;
+  String? _password;
+  String? _phoneNumber;
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -44,34 +46,37 @@ class _HomePageState extends State<HomePage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                /// Card to Show Saved Data
-                Card(
-                  elevation: 5.0,
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 50.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// Saved Data
-                        LabelTextWidget(label: "Profile :"),
-                        const SizedBox(height: 20.0),
-                        LabelTextWidget(label: _userName ?? ""),
-                        LabelTextWidget(label: _fullName ?? ""),
-                        LabelTextWidget(label: _emailId ?? ""),
-                        LabelTextWidget(label: _password ?? ""),
-                        LabelTextWidget(label: _phoneNumber ?? ""),
-                        const SizedBox(height: 20.0),
-                        Center(
-                          child: IconButton(
-                            onPressed: refresh,
-                            icon: Icon(Icons.refresh),
+                _isLoading
+                    ? CircularProgressIndicator(
+                        color: Colors.purple,
+                        strokeWidth: 8,
+                        strokeAlign: 20,
+                        padding: EdgeInsets.symmetric(vertical: 200.0),
+                      )
+                    : Card(
+                        elevation: 5.0,
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 50.0,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              /// Saved Data
+                              LabelTextWidget(label: "Profile :"),
+                              const SizedBox(height: 20.0),
+                              LabelTextWidget(label: _userName ?? ""),
+                              LabelTextWidget(label: _fullName ?? ""),
+                              LabelTextWidget(label: _emailId ?? ""),
+                              LabelTextWidget(label: _password ?? ""),
+                              LabelTextWidget(label: _phoneNumber ?? ""),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
+
                 SizedBox(height: 50),
 
                 /// Logout Button
@@ -109,9 +114,8 @@ class _HomePageState extends State<HomePage> {
     _phoneNumber = await prefService.getPrefString(
       key: SharedPrefService.kPhoneNo,
     );
-  }
 
-  void refresh() {
-    setState(() {});
+    if (!mounted) return;
+    setState(() => _isLoading = false);
   }
 }
