@@ -6,14 +6,12 @@ class FilledButtonWidget extends StatelessWidget {
     super.key,
     required this.buttonLabel,
     required this.onPress,
-    this.buttonColor,
     this.isClicked = false,
   });
 
   /// Parameters
   final String buttonLabel;
   final VoidCallback onPress;
-  final Color? buttonColor;
   final bool? isClicked;
 
   @override
@@ -24,7 +22,7 @@ class FilledButtonWidget extends StatelessWidget {
       child: FilledButton(
         onPressed: onPress,
         style: FilledButton.styleFrom(
-          backgroundColor: buttonColor ?? Colors.purple,
+          backgroundColor: Colors.purple,
         ),
         child: isClicked!
             /// Circular Progress Indicator
