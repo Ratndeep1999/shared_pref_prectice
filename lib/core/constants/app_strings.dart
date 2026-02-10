@@ -31,4 +31,7 @@ class AppStrings {
   // Home
   static const homeTitle = "Home Page";
   static const logout = "Logout";
+
+  // Forget Password
+  static const check = "Check";
 }
