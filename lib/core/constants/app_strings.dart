@@ -13,6 +13,7 @@ class AppStrings {
   static const yourPassword = "Enter Your Password";
   static const loginButton = "Login...";
   static const createAccount = "Don't Have Account? Create Account";
+  static const forgetPassword = "Forget Password";
 
   // Signup
   static const signupTitle = "SignUp Page";
