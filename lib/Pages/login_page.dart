@@ -125,7 +125,6 @@ class LoginPageState extends State<LoginPage> {
                     /// Login Button
                     FilledButtonWidget(
                       buttonLabel: AppStrings.loginButton,
-                      buttonColor: _isFormValid ? null : Colors.purple.shade200,
                       isClicked: _isLoggin,
                       onPress: _isFormValid ? loginPress : () {},
                     ),
