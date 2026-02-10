@@ -69,8 +69,9 @@ class GetPasswordPageState extends State<GetPasswordPage> {
                           ),
 
                     /// Navigate to login page
+                    const SizedBox(height: 30.0),
                     FilledButtonWidget(
-                      buttonLabel: AppStrings.loginButton,
+                      buttonLabel: AppStrings.backToLogin,
                       onPress: backToLogin,
                       isClicked: false,
                     ),
