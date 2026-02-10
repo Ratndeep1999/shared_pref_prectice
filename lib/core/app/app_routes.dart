@@ -17,5 +17,6 @@ class AppRoutes {
   static const signup = '/signup';
   static const home = '/home';
   static const forgetPassword = '/forgetPassword';
-  static const checkNumber = 'checkNumber';
+  static const checkNumber = '/checkNumber';
+  static const getPassword = '/getPassword';
 }
