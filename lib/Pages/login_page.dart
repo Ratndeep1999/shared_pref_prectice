@@ -137,6 +137,16 @@ class LoginPageState extends State<LoginPage> {
                           Navigator.pushNamed(context, AppRoutes.signup),
                       child: LabelTextWidget(label: AppStrings.createAccount),
                     ),
+                    const SizedBox(height: 20),
+
+                    /// Forget Password Button
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        AppRoutes.forgetPassword,
+                      ),
+                      child: LabelTextWidget(label: AppStrings.forgetPassword),
+                    ),
                   ],
                 ),
               ),
