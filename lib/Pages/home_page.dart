@@ -61,6 +61,13 @@ class _HomePageState extends State<HomePage> {
                         LabelTextWidget(label: _emailId ?? ""),
                         LabelTextWidget(label: _password ?? ""),
                         LabelTextWidget(label: _phoneNumber ?? ""),
+                        const SizedBox(height: 20.0),
+                        Center(
+                          child: IconButton(
+                            onPressed: refresh,
+                            icon: Icon(Icons.refresh),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -102,5 +109,9 @@ class _HomePageState extends State<HomePage> {
     _phoneNumber = await prefService.getPrefString(
       key: SharedPrefService.kPhoneNo,
     );
+  }
+
+  void refresh() {
+    setState(() {});
   }
 }
