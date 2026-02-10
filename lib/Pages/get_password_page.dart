@@ -31,6 +31,7 @@ class GetPasswordPageState extends State<GetPasswordPage> {
   void initState() {
     super.initState();
     fields = FormFields();
+    getOldPassword();
   }
 
   @override
@@ -63,7 +64,7 @@ class GetPasswordPageState extends State<GetPasswordPage> {
                             padding: EdgeInsets.symmetric(vertical: 50),
                           )
                         : LabelTextWidget(
-                            label: _password ?? '00',
+                            label: _password ?? '__',
                             fontSize: 23,
                           ),
 
