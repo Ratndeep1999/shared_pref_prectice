@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:shared_pref_prectice/Pages/login_page.dart';
 import 'package:shared_pref_prectice/Widgets/filled_button_widget.dart';
 import 'package:shared_pref_prectice/Widgets/label_text_widget.dart';
+import 'package:shared_pref_prectice/core/app/app_routes.dart';
 import 'package:shared_pref_prectice/core/constants/app_strings.dart';
+import 'package:shared_pref_prectice/data/local/shared_pref_service.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+SharedPrefService prefService = SharedPrefService();
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +45,11 @@ class HomePage extends StatelessWidget {
                         /// Saved Data
                         LabelTextWidget(label: "Profile :"),
                         const SizedBox(height: 20.0),
-                        LabelTextWidget(label: "ratndeep"),
-                        LabelTextWidget(label: "Ratndeep Chandankhede"),
-                        LabelTextWidget(
-                          label: "ratndeepChandankhede@gmail.com",
-                        ),
-                        LabelTextWidget(label: "ratndeep@121"),
-                        LabelTextWidget(label: "+91 8558830830"),
+                        LabelTextWidget(label: SharedPrefService.kUserName),
+                        LabelTextWidget(label: SharedPrefService.kFullName),
+                        LabelTextWidget(label: SharedPrefService.kEmailId),
+                        LabelTextWidget(label: SharedPrefService.kPassword),
+                        LabelTextWidget(label: SharedPrefService.kPhoneNo),
                       ],
                     ),
                   ),
@@ -67,9 +73,7 @@ class HomePage extends StatelessWidget {
 
   /// Method to Navigate LoginPage()
   _navigateToLoginPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
+    prefService.clearAll();
+    Navigator.pushReplacementNamed(context, AppRoutes.login);
   }
 }
