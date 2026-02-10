@@ -6,13 +6,13 @@ class FilledButtonWidget extends StatelessWidget {
     super.key,
     required this.buttonLabel,
     required this.onPress,
-    this.isClicked = false,
+    required this.isClicked,
   });
 
   /// Parameters
   final String buttonLabel;
   final VoidCallback onPress;
-  final bool? isClicked;
+  final bool isClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,8 @@ class FilledButtonWidget extends StatelessWidget {
       width: 250,
       child: FilledButton(
         onPressed: onPress,
-        style: FilledButton.styleFrom(
-          backgroundColor: Colors.purple,
-        ),
-        child: isClicked!
+        style: FilledButton.styleFrom(backgroundColor: Colors.purple),
+        child: isClicked
             /// Circular Progress Indicator
             ? SizedBox(
                 height: 28,
@@ -34,8 +32,9 @@ class FilledButtonWidget extends StatelessWidget {
                   strokeWidth: 5,
                 ),
               )
-            /// Label text
-            : LabelTextWidget(
+            :
+              /// Label text
+              LabelTextWidget(
                 label: buttonLabel,
                 fontSize: 20,
                 fontColor: Colors.black,
