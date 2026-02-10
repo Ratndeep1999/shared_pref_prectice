@@ -37,4 +37,5 @@ class AppStrings {
   static const detailsNotMatched = "Please check the details again";
   static const checkNumber = "Check Phone Number";
   static const numberNotMatched = "Please check the Number again";
+  static const getPassword = "Get Password";
 }
