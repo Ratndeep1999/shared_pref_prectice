@@ -38,6 +38,7 @@ class AppStrings {
   static const checkNumber = "Check Phone Number";
   static const numberNotMatched = "Please check the Number again";
   static const getPassword = "Get Password";
+  static const backToLogin = "Back To Login";
   static const newPassword = "Enter New Password";
   static const conformNewPassword = "Enter New Password Again";
   static const updatePassword = "Update Password";
