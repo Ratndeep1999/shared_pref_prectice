@@ -13,8 +13,19 @@ class HomePage extends StatefulWidget {
 }
 
 SharedPrefService prefService = SharedPrefService();
+String? _userName;
+String? _fullName;
+String? _emailId;
+String? _password;
+String? _phoneNumber;
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    initializeData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +56,11 @@ class _HomePageState extends State<HomePage> {
                         /// Saved Data
                         LabelTextWidget(label: "Profile :"),
                         const SizedBox(height: 20.0),
-                        LabelTextWidget(label: SharedPrefService.kUserName),
-                        LabelTextWidget(label: SharedPrefService.kFullName),
-                        LabelTextWidget(label: SharedPrefService.kEmailId),
-                        LabelTextWidget(label: SharedPrefService.kPassword),
-                        LabelTextWidget(label: SharedPrefService.kPhoneNo),
+                        LabelTextWidget(label: _userName ?? ""),
+                        LabelTextWidget(label: _fullName ?? ""),
+                        LabelTextWidget(label: _emailId ?? ""),
+                        LabelTextWidget(label: _password ?? ""),
+                        LabelTextWidget(label: _phoneNumber ?? ""),
                       ],
                     ),
                   ),
@@ -75,5 +86,21 @@ class _HomePageState extends State<HomePage> {
   _navigateToLoginPage(BuildContext context) {
     prefService.clearAll();
     Navigator.pushReplacementNamed(context, AppRoutes.login);
+  }
+
+  Future<void> initializeData() async {
+    _userName = await prefService.getPrefString(
+      key: SharedPrefService.kUserName,
+    );
+    _fullName = await prefService.getPrefString(
+      key: SharedPrefService.kFullName,
+    );
+    _emailId = await prefService.getPrefString(key: SharedPrefService.kEmailId);
+    _password = await prefService.getPrefString(
+      key: SharedPrefService.kPassword,
+    );
+    _phoneNumber = await prefService.getPrefString(
+      key: SharedPrefService.kPhoneNo,
+    );
   }
 }
