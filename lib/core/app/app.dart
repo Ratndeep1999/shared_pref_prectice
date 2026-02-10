@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_pref_prectice/Pages/forget_password_page.dart';
 import 'package:shared_pref_prectice/core/constants/app_strings.dart';
 import '../../Pages/home_page.dart';
 import '../../Pages/login_page.dart';
@@ -25,18 +26,24 @@ class App extends StatelessWidget {
       /// Application title (used by OS task switcher)
       title: AppStrings.appName,
       debugShowCheckedModeBanner: false,
+
       /// Theme
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
+
       /// Initial route when app launches
       initialRoute: AppRoutes.splash,
+
       /// Named route registrations
       routes: {
-        AppRoutes.splash: (_) => const SplashPage(),  /// _ : means Context
+        AppRoutes.splash: (_) => const SplashPage(),
+
+        /// _ : means Context
         AppRoutes.login: (_) => const LoginPage(),
         AppRoutes.signup: (_) => const SignUpPage(),
         AppRoutes.home: (_) => const HomePage(),
+        AppRoutes.forgetPassword: (_) => const ForgetPasswordPage(),
       },
     );
   }
