@@ -34,6 +34,7 @@ class AppStrings {
 
   // Forget Password
   static const check = "Check";
-  static const checkDetails = "Please check the details again";
+  static const detailsNotMatched = "Please check the details again";
   static const checkNumber = "Check Phone Number";
+  static const numberNotMatched = "Please check the Number again";
 }
