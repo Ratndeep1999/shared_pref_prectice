@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_pref_prectice/Pages/check_number_page.dart';
 import 'package:shared_pref_prectice/Pages/forget_password_page.dart';
 import 'package:shared_pref_prectice/core/constants/app_strings.dart';
 import '../../Pages/home_page.dart';
@@ -44,6 +45,7 @@ class App extends StatelessWidget {
         AppRoutes.signup: (_) => const SignUpPage(),
         AppRoutes.home: (_) => const HomePage(),
         AppRoutes.forgetPassword: (_) => const ForgetPasswordPage(),
+        AppRoutes.checkNumber: (_) => const CheckNumberPage(),
       },
     );
   }
