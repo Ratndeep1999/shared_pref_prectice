@@ -84,6 +84,7 @@ class _HomePageState extends State<HomePage> {
                   child: FilledButtonWidget(
                     buttonLabel: AppStrings.logout,
                     onPress: () => _navigateToLoginPage(context),
+                    isClicked: false,
                   ),
                 ),
               ],
