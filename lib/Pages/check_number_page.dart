@@ -45,27 +45,29 @@ class CheckNumberPageState extends State<CheckNumberPage> {
           child: AutofillGroup(
             child: Form(
               key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(height: 50.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 50.0),
 
-                  /// Mobile No. Section
-                  LabelTextWidget(label: AppStrings.phone, fontSize: 23),
-                  PhoneNumberFieldWidget(
-                    controller: fields.phoneController,
-                    focusNode: fields.phoneNode,
-                    onSaved: (PhoneNumber? num) =>
-                        _mobileNo = "${num!.countryCode} ${num.number}",
-                  ),
-                  const SizedBox(height: 50.0),
+                    /// Mobile No. Section
+                    LabelTextWidget(label: AppStrings.phone, fontSize: 23),
+                    PhoneNumberFieldWidget(
+                      controller: fields.phoneController,
+                      focusNode: fields.phoneNode,
+                      onSaved: (PhoneNumber? num) =>
+                          _mobileNo = "${num!.countryCode} ${num.number}",
+                    ),
+                    const SizedBox(height: 50.0),
 
-                  /// Check is Number Match
-                  FilledButtonWidget(
-                    buttonLabel: AppStrings.check,
-                    onPress: checkNumber,
-                    isClicked: _isClicked,
-                  ),
-                ],
+                    /// Check is Number Match
+                    FilledButtonWidget(
+                      buttonLabel: AppStrings.check,
+                      onPress: checkNumber,
+                      isClicked: _isClicked,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -76,10 +78,12 @@ class CheckNumberPageState extends State<CheckNumberPage> {
 
   /// Validate user mobile number
   Future<void> checkNumber() async {
+    FocusScope.of(context).unfocus();
+
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    setState(() => _isClicked = true);
 
+    setState(() => _isClicked = true);
     final savedNumber = await prefService.getPrefString(
       key: SharedPrefService.kPhoneNo,
     );
