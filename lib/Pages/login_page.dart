@@ -192,8 +192,9 @@ class LoginPageState extends State<LoginPage> {
         _password == savedPassword;
 
     if (!mounted) return;
-    setState(() => _isLoggin = false);
+
     Future.delayed(const Duration(seconds: 2), () {
+      setState(() => _isLoggin = false);
       if (isValidUser) {
         prefService.setPrefBool(
           key: SharedPrefService.kIsLoggedIn,
